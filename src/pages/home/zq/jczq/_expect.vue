@@ -238,6 +238,15 @@
                     return this.$route.params.expect
                 }
             },
+            fidIndexMap () {
+                const map = {}
+                this.matches.forEach((match, idx) => {
+                    if (match.status !== StatusCode.ENDED) {
+                        map[match.fid] = idx
+                    }
+                })
+                return map
+            },
             preAndNextExpect () {
                 let result = {}
                 let index = 0
@@ -254,6 +263,10 @@
                 return this.matchInfo.expectList
             }
         },
+        mounted () {
+            console.log(Object.keys(this.fidIndexMap))
+//            this.matches =
+        },
         methods: {
             goDetail ({fid}) {
                 this.$router.push(`/detail/football/${fid}/situation`)
@@ -268,26 +281,26 @@
         filters: {
             combatDesc: (cell) => {
                 switch (cell.result) {
-                    case '3':
-                        return `${cell.continous}连胜`
-                    case '1':
-                        return `${cell.continous}连平`
-                    case '0':
-                        return `${cell.continous}连负`
-                    default:
-                        return ''
+                case '3':
+                    return `${cell.continous}连胜`
+                case '1':
+                    return `${cell.continous}连平`
+                case '0':
+                    return `${cell.continous}连负`
+                default:
+                    return ''
                 }
             },
             predictResult: (code) => {
                 switch (code) {
-                    case '3':
-                        return '主胜'
-                    case '1':
-                        return '平局'
-                    case '0':
-                        return '主负'
-                    default:
-                        return ''
+                case '3':
+                    return '主胜'
+                case '1':
+                    return '平局'
+                case '0':
+                    return '主负'
+                default:
+                    return ''
                 }
             },
             matchtimeFmt: (macthtime) => {

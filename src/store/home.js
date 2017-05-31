@@ -61,6 +61,9 @@ const state = {
     }
 }
 const actionsInfo = mapActions({
+    async subscribe ({dispatch}, fids) {
+        dispatch('subscribe', fids)
+    },
     async fetchBjdcMatches ({commit}, expect) {
         const bjdc = await ajax.get(`/score/zq/info?vtype=bjdc&expect=${expect === 'cur' ? '' : expect}`)
         bjdc.matches.some(match => {
