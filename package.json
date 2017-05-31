@@ -1,0 +1,83 @@
+{
+  "name": "my_ssr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && npm run build:client && npm run build:server",
+    "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --hide-modules",
+    "build:embed": "cross-env NODE_ENV=production VUE_ENV=app webpack --config build/webpack.embed.config.js --progress --hide-modules",
+    "prod": "cross-env NODE_ENV=production node ./server.js",
+    "dev": "node ./server.js",
+    "prod-embed": "cross-env NODE_ENV=production EMBED=app node ./server.js",
+    "clean": "rimraf dist/*",
+    "precommit": "lint-staged",
+    "lint": "eslint --ext .js,.vue src",
+    "lint-fix": "eslint --ext .js,.vue src --fix"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --ext .js,.vue src --fix",
+      "git add"
+    ]
+  },
+  "author": "sampsonli",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "forward-request": "^1.0.1",
+    "compression": "^1.6.2",
+    "serve-favicon": "^2.4.3",
+    "vue-server-renderer": "^2.3.3",
+    "vue": "^2.3.3",
+    "vue-router": "^2.5.3",
+    "vuex": "^2.3.1",
+    "vuex-router-sync": "^4.1.1",
+    "v-tap": "^3.0.1",
+    "axios": "^0.16.1",
+    "rimraf": "^2.6.1",
+    "scroller": "0.0.3",
+    "lru-cache": "^4.0.2",
+    "iscroll": "^5.2.0",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-vue-app": "^1.2.0",
+    "cross-env": "^5.0.0"
+  },
+  "devDependencies": {
+    "es6-promise": "^4.1.0",
+    "production": "^0.0.2",
+    "vue-template-compiler": "^2.3.3",
+    "autoprefixer": "^7.0.1",
+    "css-loader": "^0.28.4",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-html": "^2.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "html-webpack-plugin": "^2.26.0",
+    "husky": "^0.13.4",
+    "lint-staged": "^3.5.1",
+    "memory-fs": "^0.4.1",
+    "style-loader": "^0.18.1",
+    "sw-precache-webpack-plugin": "^0.11.0",
+    "url-loader": "^0.5.8",
+    "vue-loader": "^12.2.1",
+    "webpack": "^2.6.1",
+    "webpack-assets-manifest": "^0.7.0",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=6.10.3"
+  }
+}
