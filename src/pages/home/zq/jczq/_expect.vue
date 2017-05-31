@@ -270,54 +270,55 @@
             }
         },
         filters: {
-            combatDesc: (cell)=>{
-                switch (cell.result){
-                    case '3': return `${cell.continous}连胜`;
-                    case '1': return `${cell.continous}连平`;
-                    case '0': return `${cell.continous}连负`;
-                    default: return '';
+            combatDesc: (cell) => {
+                switch (cell.result) {
+                case '3': return `${cell.continous}连胜`
+                case '1': return `${cell.continous}连平`
+                case '0': return `${cell.continous}连负`
+                default: return ''
                 }
             },
             predictResult: (code) => {
-                switch (code){
-                    case '3': return '主胜';
-                    case '1': return '平局';
-                    case '0': return '主负';
-                    default: return '';
+                switch (code) {
+                case '3': return '主胜'
+                case '1': return '平局'
+                case '0': return '主负'
+                default: return ''
                 }
             },
             matchtimeFmt: (macthtime) => {
-                return macthtime.match(/\d{2}:\d{2}/)[0];
+                return macthtime.match(/\d{2}:\d{2}/)[0]
             },
             matchdateFmt: (macthtime) => {
-                return macthtime.match(/\d{2}-\d{2}/)[0];
+                return macthtime.match(/\d{2}-\d{2}/)[0]
             },
+            // eslint-disable-next-line
             matchAtFmt: (match_at, isFirstHalf) => {
-
-                let second = Number(match_at);
+                // eslint-disable-next-line
+                let second = Number(match_at)
                 if (second >= 45 * 60) {
-                    return isFirstHalf ? '45+' : '90+';
+                    return isFirstHalf ? '45+' : '90+'
                 }
-                var minute = Math.ceil(Number(match_at) / 60);
+                var minute = Math.ceil(Number(match_at) / 60)
                 if (minute <= 0) {
-                    minute = 1;
+                    minute = 1
                 }
-                return isFirstHalf ? minute : (minute + 45);
+                return isFirstHalf ? minute : (minute + 45)
             },
             matchtimeFm: (macthtime) => {
-                return macthtime.match(/\d{2}:\d{2}/)[0];
+                return macthtime.match(/\d{2}:\d{2}/)[0]
             },
             truncate: function (input, length, tail) {
                 if (input.length <= length) {
-                    return input;
+                    return input
                 }
-                return input.slice(0, length) + (tail != null ? tail : "...");
+                return input.slice(0, length) + (tail != null ? tail : '...')
             },
             contains: function (list, item) {
                 if (!list || !list.length) {
-                    return false;
+                    return false
                 }
-                return list.indexOf(item) > -1;
+                return list.indexOf(item) > -1
             }
         }
     }
