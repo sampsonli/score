@@ -3,6 +3,13 @@
         <router-view></router-view>
     </div>
 </template>
+<script>
+    export default {
+        mounted () {
+            this.$store.dispatch('initWebsocket')
+        }
+    }
+</script>
 <style>
     .l-box-center{display:-webkit-box; -webkit-box-align: center; -webkit-box-pack: center;display:flex;justify-content: center;align-items: center;  -webkit-box-orient: vertical;flex-flow: column;}
     .l-box-vertical-center{display: -webkit-box;-webkit-box-align: center;display: flex;align-items: center;-webkit-box-orient: horizontal; flex-flow: row;}

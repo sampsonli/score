@@ -4,7 +4,7 @@
 /**
  * Created by sampson on 2017/5/10.
  */
-import axios from '~common/axios'
+import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 const ns = 'zqdetail'
 const state = {
@@ -12,37 +12,15 @@ const state = {
     europe: null
 }
 const actionsInfo = mapActions({
-    getBaseInfo ({commit}, fid) {
-        return axios.get(`/score/zq/baseinfo?fid=${fid}`).then((resp) => {
-            if (resp.status === 200) {
-                if (resp.data.status === '100') {
-                    return resp.data.data
-                } else {
-                    throw new Error(resp.data.message)
-                }
-            } else { // http 请求错误
-                throw new Error(resp.message)
-            }
-        }).then((data) => {
-            commit(mTypes.setBaseInfo, data)
-            return data
-        })
+    async getBaseInfo ({commit}, fid) {
+        const baseInfo = await ajax.get(`/score/zq/baseinfo?fid=${fid}`)
+        commit(mTypes.setBaseInfo, baseInfo)
+        return baseInfo
     },
-    getEurope ({commit}, fid) {
-        return axios.get(`/score/zq/europe?fid=${fid}`).then((resp) => {
-            if (resp.status === 200) {
-                if (resp.data.status === '100') {
-                    return resp.data.data
-                } else {
-                    throw new Error(resp.data.message)
-                }
-            } else { // http 请求错误
-                throw new Error(resp.message)
-            }
-        }).then((data) => {
-            commit(mTypes.setEurope, data)
-            return data
-        })
+    async getEurope ({commit}, fid) {
+        const europe = await ajax.get(`/score/zq/europe?fid=${fid}`)
+        commit(mTypes.setEurope, europe)
+        return europe
     }
 }, ns)
 
@@ -59,4 +37,4 @@ const actions = actionsInfo.actions
 const mutations = mutationsInfo.mutations
 export const aTypes = actionsInfo.aTypes
 export const mTypes = mutationsInfo.mTypes
-export default { state, actions, mutations }
+export default {state, actions, mutations}
