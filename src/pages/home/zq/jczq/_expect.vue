@@ -29,36 +29,45 @@
                 <ul class="list">
 
                     <li class="list-item" :class="{'__first_no_end': $item._flag}"
-                         @click="goDetail($item)"
-                         :id="$item.fid"
-                         v-for="$item in showedMatches">
+                        v-tap="{methods: goDetail, fid: $item.fid}"
+                        :id="$item.fid"
+                        v-for="$item in showedMatches">
                         <div class="list-tit">
                             <span class="list-day"> {{$item.order}}&nbsp;&nbsp;{{$item.simpleleague}}</span>
 
+                            <span class="list-state color3" v-if="feature.a[$item.status]">
+                                {{$item.matchtime.substring(5, 16)}}
+                            </span>
                             <span class="list-state color3"
-                                  v-if="$item.status === StatusCode.NOT_STARTED ||$item.status===StatusCode.CANCELED || $item.status===StatusCode.CHANGED || $item.status===StatusCode.REMOVED || $item.status===StatusCode.PAUSED || $item.status===StatusCode.UNSURE">
-																		{{$item.matchtime.substring(5,16)}}</span>
-                            <span class="list-state color3"
-                                  v-if="$item.status==StatusCode.ENDED">完场</span>
+                                  v-if="$item.status === StatusCode.ENDED">完场</span>
 
                             <span class="crazy-sports f20" v-if="$item.iscrazybet==='1'">猜球</span>
 
-
                             <span class="list-state green"
-                                  v-if="$item.status==StatusCode.MID">中场休息</span>
+                                  v-if="$item.status === StatusCode.MID">中场休息</span>
                             <span class="list-state green"
-                                  v-if="$item.status == StatusCode.FIRST_HALF || $item.status == StatusCode.LAST_HALF">{{$item.match_at | matchAtFmt($item.status == StatusCode.FIRST_HALF)}}<i class="dian">'</i></span>
+                                  v-if="$item.status === StatusCode.FIRST_HALF || $item.status === StatusCode.LAST_HALF">
+                                {{$item.match_at | matchAtFmt($item.status === StatusCode.FIRST_HALF)}}
+                                <i class="dian">'</i>
+                            </span>
                             <span class="list-state green"
-                                  v-if="$item.status==StatusCode.ENDED && $item.extra_statusid == StatusCode.SPOT_KICK_STARTED">点球 {{$item.spot_kick_score}}</span>
+                                  v-if="$item.status===StatusCode.ENDED && $item.extra_statusid === StatusCode.SPOT_KICK_STARTED">
+                                点球 {{$item.spot_kick_score}}
+                            </span>
 
                             <span class="list-time"
-                                  v-if="$item.status==StatusCode.MID || $item.status == StatusCode.FIRST_HALF || $item.status == StatusCode.LAST_HALF || $item.status == StatusCode.MID || $item.status == StatusCode.ENDED">
-																			{{$item.matchtime.substring(5,16)}}</span>
+                                  v-if="feature.b[$item.status]">
+								{{$item.matchtime.substring(5, 16)}}
+                            </span>
                             <span class="list-time"
-                                  v-if="$item.status == StatusCode.NOT_STARTED ||$item.status==StatusCode.CANCELED || $item.status==StatusCode.CHANGED || $item.status==StatusCode.REMOVED || $item.status==StatusCode.PAUSED || $item.status==StatusCode.UNSURE"></span>
+                                  v-if="feature.a[$item.status]">
+                            </span>
                         </div>
                         <div class="list-team">
-                            <div class="team team-l f30"><img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png" :data-src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'"> {{$item.homesxname|truncate(4)}}
+                            <div class="team team-l f30">
+                                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
+                                                              :data-src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
+                                {{$item.homesxname | truncate(4)}}
                                 <sub class="team-site f22"
                                      v-if="$item.zlc == 1">(中)</sub>
                                 <i class="red-pai f22"
@@ -66,8 +75,8 @@
                             </div>
 
                             <div class="team-c"
-                                 v-if="$item.status == StatusCode.FIRST_HALF || $item.status == StatusCode.LAST_HALF || $item.status == StatusCode.MID || $item.status == StatusCode.ENDED"
-                                 :class="{'green':$item.status != StatusCode.ENDED,'color3':$item.status == StatusCode.ENDED}">
+                                 v-if="feature.b[$item.status]"
+                                 :class="{'green': $item.status !== StatusCode.ENDED,'color3': $item.status === StatusCode.ENDED}">
                                 <p class="score">
                                     <em class="score-itm">
                                         <!--v-scroll-text="{'score':$item.homescore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">-->
@@ -84,37 +93,39 @@
                                 </p>
                             </div>
                             <div class="team-c"
-                                 v-if="$item.status == StatusCode.NOT_STARTED"
+                                 v-if="$item.status === StatusCode.NOT_STARTED"
                                  @click.stop="onCollect($item.fid,$item.isfocus)">
                                 <i class="collect"
-                                   :class="{'cur':$item.isfocus=='1'}"></i>
+                                   :class="{'cur': $item.isfocus==='1'}"></i>
                             </div>
 
                             <div class="team-c"
-                                 v-if="$item.status==StatusCode.CANCELED"><span class="f30 ffw">取消</span></div>
+                                 v-if="$item.status===StatusCode.CANCELED"><span class="f30 ffw">取消</span></div>
                             <div class="team-c"
-                                 v-if="$item.status==StatusCode.CHANGED"><span class="f30 ffw">改期</span></div>
+                                 v-if="$item.status===StatusCode.CHANGED"><span class="f30 ffw">改期</span></div>
                             <div class="team-c"
-                                 v-if="$item.status==StatusCode.REMOVED"><span class="f30 ffw">腰斩</span></div>
+                                 v-if="$item.status===StatusCode.REMOVED"><span class="f30 ffw">腰斩</span></div>
                             <div class="team-c"
-                                 v-if="$item.status==StatusCode.PAUSED"><span class="f30 ffw">中断</span></div>
+                                 v-if="$item.status===StatusCode.PAUSED"><span class="f30 ffw">中断</span></div>
                             <div class="team-c"
-                                 v-if="$item.status==StatusCode.UNSURE"><span class="f30 ffw">待定</span></div>
+                                 v-if="$item.status===StatusCode.UNSURE"><span class="f30 ffw">待定</span></div>
 
                             <div class="team team-r f30">
                                 <i class="red-pai f22"
-                                   v-if="$item.away_red_counts>0">{{$item.away_red_counts}}</i> {{$item.awaysxname|truncate(4)}}
-                                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png" :data-src="$item.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
+                                   v-if="$item.away_red_counts>0">{{$item.away_red_counts}}</i>
+                                {{$item.awaysxname | truncate(4)}}
+                                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
+                                     :data-src="$item.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
                             </div>
                         </div>
                         <div class="list-info f22">
-                            <span v-if="$item.status == StatusCode.MID||$item.status==StatusCode.LAST_HALF||$item.status==StatusCode.ENDED">半场 {{$item.homehalfscore}}:{{$item.awayhalfscore}}&nbsp;</span>
-                            <span v-if="$item.status == StatusCode.ENDED && $item.extra_statusid == StatusCode.EXTRA_STARTED">90'内 {{$item.homescore}}:{{$item.awayscore}}&nbsp;</span>
-                            <span v-if="$item.status == StatusCode.ENDED && $item.extra_statusid == StatusCode.EXTRA_ENDED">90'内 {{$item.homescore}}:{{$item.awayscore}} 加时 {{$item.extra_time_score}}&nbsp;</span>
-                            <span v-if="$item.status == StatusCode.ENDED && $item.extra_statusid == StatusCode.SPOT_KICK_ENDED">90'内 {{$item.homescore}}:{{$item.awayscore}} {{$item.extra_exist==1?('加时'+$item.extra_time_score):''}} 点球 {{$item.spot_kick_score}}</span>
+                            <span v-if="$item.status === StatusCode.MID||$item.status===StatusCode.LAST_HALF||$item.status===StatusCode.ENDED">半场 {{$item.homehalfscore}}:{{$item.awayhalfscore}}&nbsp;</span>
+                            <span v-if="$item.status === StatusCode.ENDED && $item.extra_statusid === StatusCode.EXTRA_STARTED">90'内 {{$item.homescore}}:{{$item.awayscore}}&nbsp;</span>
+                            <span v-if="$item.status === StatusCode.ENDED && $item.extra_statusid === StatusCode.EXTRA_ENDED">90'内 {{$item.homescore}}:{{$item.awayscore}} 加时 {{$item.extra_time_score}}&nbsp;</span>
+                            <span v-if="$item.status === StatusCode.ENDED && $item.extra_statusid === StatusCode.SPOT_KICK_ENDED">90'内 {{$item.homescore}}:{{$item.awayscore}} {{$item.extra_exist === '1' ? ('加时' + $item.extra_time_score) : ''}} 点球 {{$item.spot_kick_score}}</span>
                         </div>
                         <div class="tips-box"
-                             v-if="tab =='hot'">
+                             v-if="tab ==='hot'">
 					<span class="easily-selected"
                           v-if="$item.tags.indexOf(1)>-1">主胜易中</span>
                             <span class="easily-selected"
@@ -129,37 +140,6 @@
                                   v-if="$item.tags.indexOf(6)>-1">单关</span>
                         </div>
                     </li>
-
-                    <!--<li v-for="match in showedMatches" class="list-item" v-tap="{methods: goDetail, fid: match.fid}"-->
-                        <!--:class="{'__first_no_end': match._flag}">-->
-                        <!--<div class="list-tit">-->
-                            <!--<span class="list-day"> {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}</span>-->
-                            <!--<span class="list-state color3">{{match.status_desc}}</span>-->
-                            <!--<span class="crazy-sports f20" v-if="match.iscrazybet==='1'">猜球</span>-->
-                            <!--<span class="list-time">{{match.matchtime.substr(5, 11)}}</span>-->
-                        <!--</div>-->
-                        <!--<div class="list-team">-->
-                            <!--<div class="team team-l f30">-->
-                                <!--<img src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_1194.png"-->
-                                     <!--:data-src="match.homelogo" data-inited="0">-->
-                                <!--{{match.homesxname}}<i class="red-pai f22" style="display: none;">0</i>-->
-                            <!--</div>-->
-                            <!--<div class="team-c color3" v-if="match.status==='4'">-->
-                                <!--<p class="score">-->
-                                    <!--<em class="score-itm"><i>{{match.homescore}}</i></em>-->
-                                    <!--<span class="score-c">:</span>-->
-                                    <!--<em class="score-itm"><i>{{match.awayscore}}</i></em>-->
-                                <!--</p>-->
-                            <!--</div>-->
-                            <!--<div class="team-c" v-if="match.status!=='4'"><i class="collect"></i></div>-->
-                            <!--<div class="team team-r f30">-->
-                                <!--{{match.awaysxname}}-->
-                                <!--<img src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_1194.png"-->
-                                     <!--:data-src="match.awaylogo" data-inited="0">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="list-info f22"><span>半场 {{match.extra_time_score}}&nbsp;</span></div>-->
-                    <!--</li>-->
                 </ul>
             </matches-scroller>
         </div>
@@ -183,6 +163,22 @@
         },
         data () {
             return {
+                feature: {
+                    a: {
+                        [StatusCode.NOT_STARTED]: true,
+                        [StatusCode.CANCELED]: true,
+                        [StatusCode.CHANGED]: true,
+                        [StatusCode.REMOVED]: true,
+                        [StatusCode.PAUSED]: true,
+                        [StatusCode.UNSURE]: true
+                    },
+                    b: {
+                        [StatusCode.MID]: true,
+                        [StatusCode.FIRST_HALF]: true,
+                        [StatusCode.LAST_HALF]: true,
+                        [StatusCode.ENDED]: true
+                    }
+                },
                 tab: 'jczq',
                 StatusCode,
                 showExpectList: false,
@@ -272,18 +268,26 @@
         filters: {
             combatDesc: (cell) => {
                 switch (cell.result) {
-                case '3': return `${cell.continous}连胜`
-                case '1': return `${cell.continous}连平`
-                case '0': return `${cell.continous}连负`
-                default: return ''
+                    case '3':
+                        return `${cell.continous}连胜`
+                    case '1':
+                        return `${cell.continous}连平`
+                    case '0':
+                        return `${cell.continous}连负`
+                    default:
+                        return ''
                 }
             },
             predictResult: (code) => {
                 switch (code) {
-                case '3': return '主胜'
-                case '1': return '平局'
-                case '0': return '主负'
-                default: return ''
+                    case '3':
+                        return '主胜'
+                    case '1':
+                        return '平局'
+                    case '0':
+                        return '主负'
+                    default:
+                        return ''
                 }
             },
             matchtimeFmt: (macthtime) => {
