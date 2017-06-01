@@ -96,7 +96,7 @@ const actions = {
                 stamp,
                 data
             })
-            if (!state.websocket.connect) await dispatch('initWebsocket')
+            // if (!state.websocket.connect) await dispatch('initWebsocket')
             state.websocket.connect && state.websocket.connect.send(latestSub)
             commit('setLatestSub', latestSub)
         } catch (e) {
@@ -112,11 +112,18 @@ const actions = {
     }
 }
 
+const getters = {
+    getSocketData (state) {
+        return state.websocket.data
+    }
+}
+
 export function createStore () {
     return new Vuex.Store({
         state,
         actions,
         mutations,
+        getters,
         modules: {
             home, zqdetail
         }

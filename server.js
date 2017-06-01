@@ -95,7 +95,7 @@ if (!isProd) {
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 const microCache = LRU({
     max: 100,
-    maxAge: 1000
+    maxAge: 2000
 })
 
 // since this app has no user-specific content, every page is micro-cacheable.
