@@ -4,12 +4,12 @@
             <div class="qi-list">
                 <ul class="responsive">
                     <li class="" v-if="preAndNextExpect.pre">
-                        <router-link :to="{path: '/home/zq/all/'+ preAndNextExpect.pre}" replace>前一期</router-link>
+                        <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/' + preAndNextExpect.pre}" replace>前一期</router-link>
                     </li>
                     <li class="" v-else>前一期</li>
                     <li class="qiqh" v-tap="{methods: toggleExpectList}">{{curExpect}} 期<i class="qi-arrow"></i></li>
                     <li class="" v-if="preAndNextExpect.next">
-                        <router-link :to="{path: '/home/zq/all/'+ preAndNextExpect.next}" replace>后一期</router-link>
+                        <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/'+ preAndNextExpect.next}" replace>后一期</router-link>
                     </li>
                     <li class="" v-else>后一期</li>
                 </ul>
@@ -66,7 +66,7 @@
                         <div class="list-team">
                             <div class="team team-l f30">
                                 <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                                                              :data-src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
+                                     :data-src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
                                 {{$item.homesxname | truncate(4)}}
                                 <sub class="team-site f22"
                                      v-if="$item.zlc == 1">(中)</sub>
@@ -125,7 +125,7 @@
                             <span v-if="$item.status === StatusCode.ENDED && $item.extra_statusid === StatusCode.SPOT_KICK_ENDED">90'内 {{$item.homescore}}:{{$item.awayscore}} {{$item.extra_exist === '1' ? ('加时' + $item.extra_time_score) : ''}} 点球 {{$item.spot_kick_score}}</span>
                         </div>
                         <div class="tips-box"
-                             v-if="tab ==='hot'">
+                             v-if="$route.params.tab ==='hot'">
 					<span class="easily-selected"
                           v-if="$item.tags.indexOf(1)>-1">主胜易中</span>
                             <span class="easily-selected"
@@ -152,14 +152,8 @@
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes} from '~store/home'
     export default {
-        async asyncData ({store, route: {params}}) {
-            let matchInfo = store.state.home.zq.all
-            if (params.expect === 'cur') {
-                if (matchInfo.allMatches[matchInfo.curExpect]) return
-            } else {
-                if (matchInfo.allMatches[params.expect]) return
-            }
-            await store.dispatch(aTypes.fetchZqAllMatches, params.expect)
+        async asyncData ({store, route: {params: {expect, tab}}}) {
+            await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
         },
         data () {
             return {
@@ -179,7 +173,6 @@
                         [StatusCode.ENDED]: true
                     }
                 },
-                tab: 'all',
                 StatusCode,
                 showExpectList: false,
                 selectOptions: null,
@@ -233,25 +226,17 @@
             beginFilter () {
                 return this.$store.state.home.filter.begin
             },
-            matchInfo () {
-                return this.$store.state.home.zq.all
+            zq () {
+                return this.$store.state.home.zq
             },
             showedMatches () {
                 return this.filteredMatches || this.matches
             },
             matches () {
-                if (this.$route.params.expect === 'cur') {
-                    return this.matchInfo.allMatches[this.matchInfo.curExpect]
-                } else {
-                    return this.matchInfo.allMatches[this.$route.params.expect]
-                }
+                return this.zq.matches
             },
             curExpect () {
-                if (this.$route.params.expect === 'cur') {
-                    return this.matchInfo.curExpect
-                } else {
-                    return this.$route.params.expect
-                }
+                return this.zq.curExpect
             },
             fidIndexMap () {
                 const map = {}
@@ -268,17 +253,17 @@
             preAndNextExpect () {
                 let result = {}
                 let index = 0
-                this.matchInfo.expectList.some((expect, idx) => {
+                this.zq.expectList.some((expect, idx) => {
                     if (expect === this.curExpect) {
                         index = idx
                     }
                 })
-                result.next = this.matchInfo.expectList[index + 1]
-                result.pre = this.matchInfo.expectList[index - 1]
+                result.next = this.zq.expectList[index + 1]
+                result.pre = this.zq.expectList[index - 1]
                 return result
             },
             expectList () {
-                return this.matchInfo.expectList
+                return this.zq.expectList
             }
         },
         mounted () {
@@ -292,7 +277,7 @@
                 this.showExpectList = !this.showExpectList
             },
             selectExpect ({expect}) {
-                this.$router.replace(`/home/zq/all/${expect}`)
+                this.$router.replace(`/home/zq/${this.$route.params.tab}jczq/${expect}`)
             }
         },
         filters: {

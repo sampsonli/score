@@ -10,15 +10,7 @@ const Home = () => import('~pages/home.vue' /* webpackChunkName: "pages/home" */
 
 const Zq = () => import('~pages/home/zq.vue' /* webpackChunkName: "pages/home-zq" */)
 
-const ZqSfc = () => import('~pages/home/zq/sfc/_expect.vue' /* webpackChunkName: "pages/home-zq-sfc-expect" */)
-
-const ZqHot = () => import('~pages/home/zq/hot/_expect.vue' /* webpackChunkName: "pages/home-zq-hot-expect" */)
-
-const ZqAll = () => import('~pages/home/zq/all/_expect.vue' /* webpackChunkName: "pages/home-zq-all-expect" */)
-
-const ZqBjdc = () => import('~pages/home/zq/bjdc/_expect.vue' /* webpackChunkName: "pages/home-zq-bjdc-expect" */)
-
-const ZqJczq = () => import('~pages/home/zq/jczq/_expect.vue' /* webpackChunkName: "pages/home-zq-jczq-expect" */)
+const ZqExpect = () => import('~pages/home/zq/_expect.vue' /* webpackChunkName: "pages/home-zq-jczq-expect" */)
 
 const Lq = () => import('~pages/home/lq.vue' /* webpackChunkName: "pages/home-lq" */)
 
@@ -65,29 +57,9 @@ export function createRouter () {
                         name: 'home-zq',
                         children: [
                             {
-                                path: 'sfc/:expect',
-                                component: ZqSfc,
+                                path: ':tab/:expect',
+                                component: ZqExpect,
                                 name: 'home-zq-sfc-expect'
-                            },
-                            {
-                                path: 'hot/:expect',
-                                component: ZqHot,
-                                name: 'home-zq-hot-expect'
-                            },
-                            {
-                                path: 'all/:expect',
-                                component: ZqAll,
-                                name: 'home-zq-all-expect'
-                            },
-                            {
-                                path: 'bjdc/:expect',
-                                component: ZqBjdc,
-                                name: 'home-zq-bjdc-expect'
-                            },
-                            {
-                                path: 'jczq/:expect',
-                                component: ZqJczq,
-                                name: 'home-zq-jczq-expect'
                             },
                             {
                                 path: '*',
