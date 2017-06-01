@@ -277,7 +277,7 @@
                 this.showExpectList = !this.showExpectList
             },
             selectExpect ({expect}) {
-                this.$router.replace(`/home/zq/${this.$route.params.tab}jczq/${expect}`)
+                this.$router.replace(`/home/zq/${this.$route.params.tab}/${expect}`)
             }
         },
         filters: {
