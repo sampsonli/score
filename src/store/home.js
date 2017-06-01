@@ -70,7 +70,7 @@ const actionsInfo = mapActions({
         dispatch('subscribe', {stamp: pushEvents.FOOTBALL_INFO, data: eventList})
     },
     async fetchBjdcMatches ({commit}, expect) {
-        const bjdc = await ajax.get(`/score/zq/info?vtype=bjdc&expect=${expect === 'cur' ? '' : expect}`)
+        const bjdc = await ajax.get(`/score/zq/info?vtype=bjdc&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         bjdc.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
@@ -82,7 +82,7 @@ const actionsInfo = mapActions({
         return bjdc
     },
     async fetchZqAllMatches ({commit}, expect) {
-        const zqAll = await ajax.get(`/score/zq/info?vtype=all&expect=${expect === 'cur' ? '' : expect}`)
+        const zqAll = await ajax.get(`/score/zq/info?vtype=all&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         zqAll.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
@@ -94,7 +94,7 @@ const actionsInfo = mapActions({
         return zqAll
     },
     async fetchJclqMatches ({commit}, expect) {
-        const jclq = await ajax.get(`/score/lq/info?vtype=jclq&expect=${expect === 'cur' ? '' : expect}`)
+        const jclq = await ajax.get(`/score/lq/info?vtype=jclq&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
 
         jclq.matches.some(match => {
             if (match.status < 4) {
@@ -107,7 +107,7 @@ const actionsInfo = mapActions({
         return jclq
     },
     async fetchJczqMatches ({commit}, expect) {
-        const jczq = await ajax.get(`/score/zq/info?vtype=jczq&expect=${expect === 'cur' ? '' : expect}`)
+        const jczq = await ajax.get(`/score/zq/info?vtype=jczq&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         jczq.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
@@ -119,7 +119,7 @@ const actionsInfo = mapActions({
         return jczq
     },
     async fetchSfcMatches ({commit}, expect) {
-        const sfc = await ajax.get(`/score/zq/info?vtype=sfc&expect=${expect === 'cur' ? '' : expect}`)
+        const sfc = await ajax.get(`/score/zq/info?vtype=sfc&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         sfc.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
@@ -131,7 +131,7 @@ const actionsInfo = mapActions({
         return sfc
     },
     async fetchHotMatches ({commit}, expect) {
-        const zqHot = await ajax.get(`/score/zq/hot?expect=${expect === 'cur' ? '' : expect}`)
+        const zqHot = await ajax.get(`/score/zq/hot?expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         zqHot.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true

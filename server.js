@@ -82,7 +82,7 @@ if (!isProd) {
                 req,
                 resp,
                 host: 'ews.500.com',
-                ip: '43.247.69.20',
+                ip: 'ews.500.com',
                 path: req.originalUrl.replace('/ews', '')
             })
         } else {

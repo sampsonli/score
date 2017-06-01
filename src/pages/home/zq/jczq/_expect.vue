@@ -212,7 +212,7 @@
             },
             fids (fids) {
                 this.$store.dispatch(aTypes.subscribeFootballInfo, fids.split(','))
-            },
+            }
 
         },
         components: {
