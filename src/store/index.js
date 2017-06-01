@@ -6,7 +6,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './home'
 import zqdetail from './zqdetail'
-// import axios from '~common/axios'
 Vue.use(Vuex)
 
 const state = {
@@ -15,14 +14,12 @@ const state = {
         connect: null,
         data: null,
         latestSub: null,
-        reconnect: 0,
-        interval: null
+        reconnect: 0
     }
 }
 const mutations = {
-    initSocket (state, {connect, interval}) {
-        state.connect = connect
-        state.interval = interval
+    initSocket (state, {connect}) {
+        state.websocket.connect = connect
     },
     addConnectNum (state) {
         state.websocket.reconnect ++
@@ -36,8 +33,9 @@ const mutations = {
 
 }
 const actions = {
-    initWebsocket ({commit, dispatch}) {
+    initWebsocket ({commit, dispatch, state}) {
         return new Promise((resolve, reject) => {
+            if (state.websocket.connect) return resolve()
             let connect = new SockJS(`http://em.500.com/score/sock`)
             let interval = null
             let hasFinished = false
@@ -88,16 +86,17 @@ const actions = {
                 error.code = '103'
                 reject(error)
             }, 1000)
-            commit('initSocket', {connect, interval})
+            commit('initSocket', {connect})
         })
     },
-    subscribe ({commit, state}, {stamp, data}) {
+    async subscribe ({commit, dispatch, state}, {stamp, data}) {
         try {
             let latestSub = JSON.stringify({
                 action: 'subs',
                 stamp,
                 data
             })
+            if (!state.websocket.connect) await dispatch('initWebsocket')
             state.websocket.connect && state.websocket.connect.send(latestSub)
             commit('setLatestSub', latestSub)
         } catch (e) {

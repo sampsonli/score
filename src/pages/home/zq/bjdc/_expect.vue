@@ -149,7 +149,7 @@
 </template>
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
-    import StatusCode from '~common/footballstatus'
+    import {FootballStatusCode as StatusCode} from '~common/constants'
     import {aTypes} from '~store/home'
     export default {
         async asyncData ({store, route: {params}}) {
@@ -209,7 +209,11 @@
             matches () {
                 this.showExpectList = false
                 this.filteredMatches = null
-            }
+            },
+            fids (fids) {
+                this.$store.dispatch(aTypes.subscribeFootballInfo, fids.split(','))
+            },
+
         },
         components: {
             MatchesScroller
@@ -247,6 +251,9 @@
                 })
                 return map
             },
+            fids () {
+                return Object.keys(this.fidIndexMap).join(',')
+            },
             preAndNextExpect () {
                 let result = {}
                 let index = 0
@@ -264,8 +271,7 @@
             }
         },
         mounted () {
-            console.log(Object.keys(this.fidIndexMap))
-//            this.matches =
+            this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
         },
         methods: {
             goDetail ({fid}) {
