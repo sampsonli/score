@@ -214,8 +214,8 @@
                 fids && fids.length && this.$store.dispatch(aTypes.subscribeFootballInfo, fids.split(','))
             },
             socketData ({data, stamp}) {
-                if(stamp === pushEvents.FOOTBALL_INFO) {
-                    let match = this.matches[this.fidIndexMap[data.fid]];
+                if (stamp === pushEvents.FOOTBALL_INFO) {
+                    let match = this.matches[this.fidIndexMap[data.fid]]
                     if (match && match.fid === data.fid) {
                         this.matches[this.fidIndexMap[data.fid]] = {...this.matches[this.fidIndexMap[data.fid]], ...data}
                     }
