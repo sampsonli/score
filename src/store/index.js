@@ -40,12 +40,8 @@ const actions = {
             let interval = null
             let hasFinished = false
             connect.onmessage = function (e) {
-                if (e.data !== 'o' && e.data !== 'h') {
-                    let data = JSON.parse(e.data)
-                    commit('updateSocketData', data)
-                } else {
-                    // alert('收到服务端心跳')
-                }
+                let data = JSON.parse(e.data)
+                commit('updateSocketData', data)
             }
             connect.onopen = function () {
                 if (state.websocket.latestSub) {
