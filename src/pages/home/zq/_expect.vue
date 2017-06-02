@@ -150,7 +150,7 @@
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
-    import {aTypes} from '~store/home'
+    import {aTypes, mTypes} from '~store/home'
     import scrollText from '~directives/scroll_text'
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
@@ -198,7 +198,7 @@
                     })
                 }
             },
-            showedMatches () {
+            showedMatchesSize () {
                 this.$refs.scroller.config()
             },
             matches () {
@@ -210,9 +210,10 @@
             },
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_INFO) {
+                    data.fid = data.fid + ''
                     let match = this.matches[this.fidIndexMap[data.fid]]
                     if (match && match.fid === data.fid) {
-                        this.matches[this.fidIndexMap[data.fid]] = {...this.matches[this.fidIndexMap[data.fid]], ...data}
+                        this.$store.commit(mTypes.updateZqMatch, {info: data, idx: this.fidIndexMap[data.fid]})
                     }
                 }
             }
@@ -233,6 +234,9 @@
             },
             zq () {
                 return this.$store.state.home.zq
+            },
+            showedMatchesSize () {
+                return this.showedMatches && this.showedMatches.length
             },
             showedMatches () {
                 return this.filteredMatches || this.matches
@@ -344,11 +348,11 @@
                 }
                 return list.indexOf(item) > -1
             },
-            expectFmt:function(expect){
+            expectFmt: function (expect) {
                 if (!expect || expect.match(/\d{4}-\d{2}-\d{2}/) == null) {
-                    return  expect + ' 期';
+                    return expect + ' 期'
                 }
-                return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()];
+                return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()]
             }
         }
     }

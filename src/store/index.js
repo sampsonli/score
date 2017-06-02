@@ -44,6 +44,22 @@ const actions = {
                 commit('updateSocketData', data)
             }
             connect.onopen = function () {
+                /*
+                let homeScore = 0
+                setInterval(() => {
+                    let data = {
+                        "status":"1",
+                        "fid":660486,
+                        "awayscore":"0",
+                        "status_desc":"上半场",
+                        "homescore":(homeScore++)+ '',
+                        "home_red_counts":"0",
+                        "away_red_counts":"0",
+                        "match_at":"1080"
+                    }
+                    // console.log(data)
+                    commit('updateSocketData', {data, stamp: 0})
+                }, 2000) */
                 if (state.websocket.latestSub) {
                     connect.send(state.websocket.latestSub)
                 }
@@ -55,7 +71,7 @@ const actions = {
                             time: new Date().getTime()
                         }
                     }))
-                }, 10000)
+                }, 15000)
                 if (hasFinished) return
                 hasFinished = true
                 resolve()

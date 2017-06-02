@@ -109,13 +109,13 @@
                         [StatusCode.SECTION_1]: true,
                         [StatusCode.SECTION_2]: true,
                         [StatusCode.SECTION_3]: true,
-                        [StatusCode.SECTION_4]: true,
+                        [StatusCode.SECTION_4]: true
                     },
                     b: {
                         [StatusCode.OVERTIME_1]: true,
                         [StatusCode.OVERTIME_2]: true,
                         [StatusCode.OVERTIME_3]: true,
-                        [StatusCode.OVERTIME_4]: true,
+                        [StatusCode.OVERTIME_4]: true
                     }
                 },
                 StatusCode,
@@ -253,11 +253,11 @@
                 }
                 return input.slice(0, length) + (tail != null ? tail : '...')
             },
-            expectFmt:function(expect){
+            expectFmt: function (expect) {
                 if (!expect || expect.match(/\d{4}-\d{2}-\d{2}/) == null) {
-                    return  expect + ' 期';
+                    return expect + ' 期'
                 }
-                return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()];
+                return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()]
             }
         }
     }
