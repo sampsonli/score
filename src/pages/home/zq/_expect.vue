@@ -184,16 +184,16 @@
         watch: {
             beginFilter (begin) {
                 if (begin) {
-                    this.$store.dispatch('home/startFilter', {
+                    this.$store.dispatch(aTypes.startFilter, {
                         matches: this.matches,
                         inited: this.selectOptions,
                         onOk: ({selectOptions, filteredMatches}) => {
                             this.filteredMatches = filteredMatches
                             this.selectOptions = selectOptions
-                            this.$store.dispatch('home/finishFilter')
+                            this.$store.dispatch(aTypes.finishFilter)
                         },
                         onCancel: () => {
-                            this.$store.dispatch('home/finishFilter')
+                            this.$store.dispatch(aTypes.finishFilter)
                         }
                     })
                 }

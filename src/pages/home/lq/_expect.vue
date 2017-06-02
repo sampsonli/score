@@ -36,15 +36,9 @@
                             <span class="list-state color3"
                                   v-if="$item.status == StatusCode.NOT_STARTED">{{$item.matchdate.slice(5,10)}} {{$item.matchdate.slice(11,16)}}</span>
                             <span class="list-state green"
-                                  v-if="$item.status == StatusCode.SECTION_1 ||
-                                                $item.status == StatusCode.SECTION_2 ||
-                                                $item.status == StatusCode.SECTION_3 ||
-                                                $item.status == StatusCode.SECTION_4">{{$item.match_at}} {{$item.status_desc}}</span>
+                                  v-if="feature.a[$item.status]">{{$item.match_at}} {{$item.status_desc}}</span>
                             <div class="list-state green"
-                                 v-if="$item.status == StatusCode.OVERTIME_1 ||
-                                                $item.status == StatusCode.OVERTIME_2 ||
-                                                $item.status == StatusCode.OVERTIME_3 ||
-                                                $item.status == StatusCode.OVERTIME_4">{{$item.match_at}} {{ StatusName[$item.status] || $item.status_desc}}
+                                 v-if="feature.b[$item.status]">{{$item.match_at}} {{ StatusName[$item.status] || $item.status_desc}}
                             </div>
                             <span class="list-state green"
                                   v-if="$item.status == StatusCode.MID">中场休息</span>
@@ -55,7 +49,9 @@
                             <span class="list-time">{{$item.status != StatusCode.NOT_STARTED?($item.matchdate.slice(5,10)+'&nbsp;&nbsp;'+$item.matchdate.slice(11,16)):''}}</span>
                         </div>
                         <div class="list-team">
-                            <div class="team team-l f30"><img :src="$item.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'"> {{$item.awaysxname|truncate(4)}}
+                            <div class="team team-l f30"><img
+                                    data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
+                                    :data-src="$item.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'"> {{$item.awaysxname|truncate(4)}}
                             </div>
                             <div class="team-c"
                                  v-if="$item.status != StatusCode.NOT_STARTED && $item.status != StatusCode.CHANGED"
@@ -81,7 +77,9 @@
                                    @click.stop="onCollect($item.fid,$item.isfocus)"></i>
                             </div>
                             <div class="team team-r f30">
-                                {{$item.homesxname|truncate(4)}} <img :src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
+                                {{$item.homesxname|truncate(4)}} <img
+                                    data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
+                                    :data-src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
                             </div>
                         </div>
                         <div class="list-info f22"
@@ -108,18 +106,16 @@
             return {
                 feature: {
                     a: {
-                        [StatusCode.NOT_STARTED]: true,
-                        [StatusCode.CANCELED]: true,
-                        [StatusCode.CHANGED]: true,
-                        [StatusCode.REMOVED]: true,
-                        [StatusCode.PAUSED]: true,
-                        [StatusCode.UNSURE]: true
+                        [StatusCode.SECTION_1]: true,
+                        [StatusCode.SECTION_2]: true,
+                        [StatusCode.SECTION_3]: true,
+                        [StatusCode.SECTION_4]: true,
                     },
                     b: {
-                        [StatusCode.MID]: true,
-                        [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true,
-                        [StatusCode.ENDED]: true
+                        [StatusCode.OVERTIME_1]: true,
+                        [StatusCode.OVERTIME_2]: true,
+                        [StatusCode.OVERTIME_3]: true,
+                        [StatusCode.OVERTIME_4]: true,
                     }
                 },
                 StatusCode,
@@ -131,16 +127,16 @@
         watch: {
             beginFilter (begin) {
                 if (begin) {
-                    this.$store.dispatch('home/startFilter', {
+                    this.$store.dispatch(aTypes.startFilter, {
                         matches: this.matches,
                         inited: this.selectOptions,
                         onOk: ({selectOptions, filteredMatches}) => {
                             this.filteredMatches = filteredMatches
                             this.selectOptions = selectOptions
-                            this.$store.dispatch('home/finishFilter')
+                            this.$store.dispatch(aTypes.finishFilter)
                         },
                         onCancel: () => {
-                            this.$store.dispatch('home/finishFilter')
+                            this.$store.dispatch(aTypes.finishFilter)
                         }
                     })
                 }
