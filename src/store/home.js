@@ -44,6 +44,13 @@ const actionsInfo = mapActions({
         const eventList = fidList.map(fid => 'LIVE:FOOTBALL:INFO:' + fid)
         dispatch('subscribe', {stamp: pushEvents.FOOTBALL_INFO, data: eventList})
     },
+    subscribeBasketballInfo ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const eventList = fidList.map(fid => 'LIVE:BASKETBALL:INFO:' + fid)
+        dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
+    },
     async fetchZqMatches ({commit}, {expect, tab}) {
         let url = ``
         if (tab === 'jczq' || tab === 'bjdc' || tab === 'all' || tab === 'sfc') {

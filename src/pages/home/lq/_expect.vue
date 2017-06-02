@@ -153,7 +153,7 @@
                 this.filteredMatches = null
             },
             fids (fids) {
-                fids && fids.length && this.$store.dispatch(aTypes.subscribeFootballInfo, fids.split(','))
+                fids && fids.length && this.$store.dispatch(aTypes.subscribeBasketballInfo, fids.split(','))
             },
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_INFO) {
@@ -219,7 +219,7 @@
             }
         },
         mounted () {
-            this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
+            this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(this.fidIndexMap))
         },
         methods: {
             goDetail ({fid}) {
@@ -265,12 +265,6 @@
         position: relative;
         top: 0;
     }
-
-    .list-item {
-        /*overflow: hidden;*/
-        /*transform: translate(0,0);*/
-    }
-
     .qi-list-box a {
         display: block;
         color: inherit;

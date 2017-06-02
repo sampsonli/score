@@ -353,11 +353,6 @@
         top: 0;
     }
 
-    .list-item {
-        /*overflow: hidden;*/
-        /*transform: translate(0,0);*/
-    }
-
     .qi-list-box a {
         display: block;
         color: inherit;
