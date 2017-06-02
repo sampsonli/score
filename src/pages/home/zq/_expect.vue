@@ -78,15 +78,15 @@
                                  v-if="feature.b[$item.status]"
                                  :class="{'green': $item.status !== StatusCode.ENDED,'color3': $item.status === StatusCode.ENDED}">
                                 <p class="score">
-                                    <em class="score-itm">
-                                        <!--v-scroll-text="{'score':$item.homescore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">-->
+                                    <em class="score-itm"
+                                        v-scroll-text="{'score':$item.homescore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">
 
                                         <i>{{$item.homescore}}</i>
                                         <i>{{$item.homescore}}</i>
                                     </em>
                                     <span class="score-c">:</span>
-                                    <em class="score-itm">
-                                        <!--v-scroll-text="{'score':$item.awayscore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">-->
+                                    <em class="score-itm"
+                                        v-scroll-text="{'score':$item.awayscore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">
                                         <i>{{$item.awayscore}}</i>
                                         <i>{{$item.awayscore}}</i>
                                     </em>
@@ -151,6 +151,7 @@
     import MatchesScroller from '~components/matches_scroller.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes} from '~store/home'
+    import scrollText from '~directives/scroll_text'
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
             if (store.state.home.zq.curExpect === expect && store.state.home.zq.tab === tab) return
@@ -219,6 +220,9 @@
         },
         components: {
             MatchesScroller
+        },
+        directives: {
+            scrollText
         },
         computed: {
             socketData () {

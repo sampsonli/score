@@ -63,6 +63,26 @@ const actionsInfo = mapActions({
         commit(mTypes.setZqMatches, matchesInfo)
         return matchesInfo
     },
+
+    async fetchLqMatches ({commit}, {expect, tab}) {
+        let url = ``
+        if (tab === 'jclq' || tab === 'all') {
+            url = `/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
+        } else if (tab === 'hot') {
+            url = `/score/zq/hot?expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
+        }
+        const matchesInfo = await ajax.get(url)
+        matchesInfo.matches.some(match => {
+            if (match.status < 4) {
+                match._flag = true
+                return true
+            }
+        })
+        matchesInfo._expect = expect
+        matchesInfo.tab = tab
+        commit(mTypes.setLqMatches, matchesInfo)
+        return matchesInfo
+    },
     async fetchJclqMatches ({commit}, expect) {
         const jclq = await ajax.get(`/score/lq/info?vtype=jclq&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
 
@@ -115,14 +135,14 @@ const mutationsInfo = mapMutations({
         state.zq.curExpect = curr_expect
         state.zq.matches = matches
     },
-    setJclq (state, data) {
-        let {curr_expect, expect_list, matches, _expect} = data
+    setLqMatches (state, data) {
+        let {curr_expect, expect_list, matches, tab} = data
+        state.lq.tab = tab
         // eslint-disable-next-line
-        state.lq.jclq.expectList = expect_list
+        state.lq.expectList = expect_list
         // eslint-disable-next-line
-        state.lq.jclq.curExpect = curr_expect
-        state.lq.jclq.allMatches[curr_expect] = matches
-        state.lq.jclq.allMatches[_expect] = matches
+        state.lq.curExpect = curr_expect
+        state.lq.matches = matches
     }
 }, ns)
 

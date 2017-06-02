@@ -20,7 +20,8 @@ module.exports = {
             '~common': path.resolve(__dirname, '../src/common'),
             '~components': path.resolve(__dirname, '../src/components'),
             '~store': path.resolve(__dirname, '../src/store'),
-            '~pages': path.resolve(__dirname, '../src/pages')
+            '~pages': path.resolve(__dirname, '../src/pages'),
+            '~directives': path.resolve(__dirname, '../src/directives')
         }
     },
     module: {

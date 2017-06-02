@@ -14,7 +14,7 @@ const ZqExpect = () => import('~pages/home/zq/_expect.vue' /* webpackChunkName: 
 
 const Lq = () => import('~pages/home/lq.vue' /* webpackChunkName: "pages/home-lq" */)
 
-const LqJclq = () => import('~pages/home/lq/jclq/_expect.vue' /* webpackChunkName: "pages/home-lq-jclq-expect" */)
+const LqExpect = () => import('~pages/home/lq/_expect.vue' /* webpackChunkName: "pages/home-zq-jczq-expect" */)
 
 const Bfyc = () => import('~pages/bfyc.vue' /* webpackChunkName: "pages/bfyc" */)
 
@@ -73,9 +73,13 @@ export function createRouter () {
                         name: 'home-lq',
                         children: [
                             {
-                                path: 'jclq/:expect?',
-                                component: LqJclq,
+                                path: ':tab/:expect?',
+                                component: LqExpect,
                                 name: 'home-lq-jclq-expect'
+                            },
+                            {
+                                path: '*',
+                                redirect: 'jclq/cur'
                             }
                         ]
                     }
