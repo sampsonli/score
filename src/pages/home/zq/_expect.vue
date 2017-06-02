@@ -4,14 +4,14 @@
             <div class="qi-list">
                 <ul class="responsive">
                     <li class="" v-if="preAndNextExpect.pre">
-                        <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/' + preAndNextExpect.pre}" replace>前一期</router-link>
+                        <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/' + preAndNextExpect.pre}" replace>{{($route.params.tab === 'all')?'前一天':'前一期'}}</router-link>
                     </li>
-                    <li class="" v-else>前一期</li>
-                    <li class="qiqh" v-tap="{methods: toggleExpectList}">{{curExpect}} 期<i class="qi-arrow"></i></li>
+                    <li class="" v-else>{{($route.params.tab === 'all')?'前一天':'前一期'}}</li>
+                    <li class="qiqh" v-tap="{methods: toggleExpectList}">{{curExpect|expectFmt}}<i class="qi-arrow"></i></li>
                     <li class="" v-if="preAndNextExpect.next">
-                        <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/'+ preAndNextExpect.next}" replace>后一期</router-link>
+                        <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/'+ preAndNextExpect.next}" replace>{{($route.params.tab === 'all')?'后一天':'后一期'}}</router-link>
                     </li>
-                    <li class="" v-else>后一期</li>
+                    <li class="" v-else>{{($route.params.tab === 'all')?'后一天':'后一期'}}</li>
                 </ul>
             </div>
         </div>
@@ -343,6 +343,12 @@
                     return false
                 }
                 return list.indexOf(item) > -1
+            },
+            expectFmt:function(expect){
+                if (!expect || expect.match(/\d{4}-\d{2}-\d{2}/) == null) {
+                    return  expect + ' 期';
+                }
+                return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()];
             }
         }
     }
