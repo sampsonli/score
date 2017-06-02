@@ -276,6 +276,8 @@
             }
         },
         mounted () {
+            const {expect, tab} = this.$route.params
+            this.$store.dispatch(aTypes.fetchZqMatches, {expect, tab})
             this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
         },
         methods: {
