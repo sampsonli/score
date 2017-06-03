@@ -175,7 +175,6 @@
                     this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
                     this.changeHeader(true)
                     this.$refs.scroller.switchStop(true)
-
                 } else {
                     this.$refs.scroller.scrollTo(0, true)
                     this.changeHeader(false)
