@@ -73,7 +73,7 @@
                     } else {
                         this.head.style[transform] = 'scale(1)'
                     }
-                    if (top > this.headPartHeight) {
+                    if (top >= this.headPartHeight) {
                         if (!status) {
                             status = 1
                             this.navigator.style[transform] = 'translate3d(0, 0, 0) scale(1)'
