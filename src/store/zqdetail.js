@@ -36,8 +36,8 @@ const actionsInfo = mapActions({
         commit(mTypes.setCuprank, cuprank)
         return cuprank
     },
-    async getRecentRecord ({commit}, {matchgroup, matchdate, stid}) {
-        const recentRecord = await ajax.get(`/score/zq/recent_record?matchgroup=${matchgroup}&matchdate=${matchdate}&stid=${stid}`)
+    async getRecentRecord ({commit}, {homeid, awayid, matchdate, leagueid, stid, limit, hoa}) {
+        const recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${leagueid}&stid=${stid}&limit=${limit}&hoa=${hoa}`)
         commit(mTypes.setRecentRecord, recentRecord)
         return recentRecord
     },
@@ -51,8 +51,8 @@ const actionsInfo = mapActions({
         commit(mTypes.setFifarank, fifarank)
         return fifarank
     },
-    async getFutureMatch ({commit}, {homeid, awayid, matchdate, leagueid, limit, hoa}) {
-        const futureMatch = await ajax.get(`/score/zq/future_match?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${leagueid}&limit=${limit}&hoa=${hoa}`)
+    async getFutureMatch ({commit}, {homeid, awayid, matchdate, fid}) {
+        const futureMatch = await ajax.get(`/score/zq/future_match?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&fid=${fid}`)
         commit(mTypes.setFutureMatch, futureMatch)
         return futureMatch
     },

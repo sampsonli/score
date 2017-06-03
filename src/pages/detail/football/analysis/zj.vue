@@ -634,18 +634,20 @@
     import {aTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
-            console.log('--------3-----')
-            console.log(store.state.zqdetail.baseInfo)
-//            const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
-            console.log('-------------')
-//            console.log(stageid)
-//            if (store.state.zqdetail.baseInfo && store.state.zqdetail.baseInfo.fid === params.fid) return
-//            await store.dispatch(aTypes.getCupRank, params.fid)
-//            await store.dispatch(aTypes.getLeaguerank, {homeid, awayid, leagueid: league_id, stid: stageid, matchdate: matchtime.substr(0, 8)})
-//            await store.dispatch(aTypes.getRecentRecord, params.fid)
+            let baseInfo = store.state.zqdetail.baseInfo
+            if (!baseInfo || store.state.zqdetail.baseInfo.fid !== params.fid) {
+                baseInfo = await store.dispatch(aTypes.getBaseInfo, params.fid)
+            }
+            const {stageid, matchtime, homeid, awayid, league_id, matchgroup} = baseInfo
+            const matchdate = matchtime.substr(0, 10)
+            const stid = stageid
+
+            await store.dispatch(aTypes.getLeaguerank, {homeid, awayid, stid, matchdate, fid: params.fid})
+            await store.dispatch(aTypes.getCupRank, {matchgroup, matchdate, stid})
+            await store.dispatch(aTypes.getRecentRecord, {homeid, awayid, matchdate, leagueid: league_id, stid, limit: 10, hoa: 0})
             await store.dispatch(aTypes.getMacauNews, params)
-//            await store.dispatch(aTypes.getFifarank, params.fid)
-//            await store.dispatch(aTypes.getFutureMatch, params.fid)
+            await store.dispatch(aTypes.getFifarank, {homeid, awayid})
+            await store.dispatch(aTypes.getFutureMatch, {homeid, awayid, matchdate, fid: params.fid})
         },
         computed: {
             analysis () {
