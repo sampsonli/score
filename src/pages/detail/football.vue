@@ -84,7 +84,7 @@
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/analysis')}">
-                            <router-link :to="{name: 'football-detail-analysis'}" replace>
+                            <router-link :to="{name: 'football-detail-analysis-zj'}" replace>
                                 <span>分析<i class="sktab-arrow"></i></span>
                             </router-link>
 

@@ -31,6 +31,10 @@ const FootballDetail = () => import('~pages/detail/football.vue' /* webpackChunk
 const FootballSituation = () => import('~pages/detail/football/situation.vue' /* webpackChunkName: "pages/detail-football-situation" */)
 
 const FootballAnalysis = () => import('~pages/detail/football/analysis.vue' /* webpackChunkName: "pages/detail-football-analysis" */)
+const FootballAnalysisZj = () => import('~pages/detail/football/analysis/zj.vue' /* webpackChunkName: "pages/detail-football-analysis-zj" */)
+const FootballAnalysisJs = () => import('~pages/detail/football/analysis/js.vue' /* webpackChunkName: "pages/detail-football-analysis-js" */)
+const FootballAnalysisPm = () => import('~pages/detail/football/analysis/pm.vue' /* webpackChunkName: "pages/detail-football-analysis-pm" */)
+const FootballAnalysisZr = () => import('~pages/detail/football/analysis/zr.vue' /* webpackChunkName: "pages/detail-football-analysis-zr" */)
 
 const FootballPredict = () => import('~pages/detail/football/predict.vue' /* webpackChunkName: "pages/detail-football-predict" */)
 
@@ -40,6 +44,7 @@ const FootballOddseAsian = () => import('~pages/detail/football/odds/asian.vue' 
 const FootballOddseRangqiu = () => import('~pages/detail/football/odds/rangqiu.vue' /* webpackChunkName: "pages/detail-football-odds-rangqiu" */)
 const FootballOddseDaxiaopan = () => import('~pages/detail/football/odds/daxiaopan.vue' /* webpackChunkName: "pages/detail-football-odds-daxiaopan" */)
 const FootballOddseBifa = () => import('~pages/detail/football/odds/bifa.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
+
 const FootballCrazybet = () => import('~pages/detail/football/crazybet.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
 
 export function createRouter () {
@@ -126,7 +131,29 @@ export function createRouter () {
                     {
                         path: 'analysis',
                         component: FootballAnalysis,
-                        name: 'football-detail-analysis'
+                        name: 'football-detail-analysis',
+                        children: [
+                            {
+                                path: 'zj',
+                                component: FootballAnalysisZj,
+                                name: 'football-detail-analysis-zj'
+                            },
+                            {
+                                path: 'js',
+                                component: FootballAnalysisJs,
+                                name: 'football-detail-analysis-js'
+                            },
+                            {
+                                path: 'pm',
+                                component: FootballAnalysisPm,
+                                name: 'football-detail-analysis-pm'
+                            },
+                            {
+                                path: 'zr',
+                                component: FootballAnalysisZr,
+                                name: 'football-detail-analysis-zr'
+                            }
+                        ]
                     },
                     {
                         path: 'predict',

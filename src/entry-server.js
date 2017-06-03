@@ -18,6 +18,7 @@ export default context => {
 
             // call asyncData() on all matched route components
             Promise.all(matchedComponents.map(Component => {
+                console.log(Component)
                 if (Component.asyncData) {
                     return Component.asyncData({
                         store,
