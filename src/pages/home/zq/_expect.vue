@@ -129,15 +129,15 @@
 					<span class="easily-selected"
                           v-if="$item.tags.indexOf(1)>-1">主胜易中</span>
                             <span class="easily-selected"
-                                  v-if="$item.tags.indexOf(2)>-1">平局易中</span>
+                                  v-if="~$item.tags.indexOf(2)">平局易中</span>
                             <span class="easily-selected"
-                                  v-if="$item.tags.indexOf(3)>-1">主负易中</span>
+                                  v-if="~$item.tags.indexOf(3)">主负易中</span>
                             <span class="highest-sales"
-                                  v-if="$item.tags.indexOf(4)>-1">热度最高</span>
+                                  v-if="~$item.tags.indexOf(4)">热度最高</span>
                             <span class="attention"
-                                  v-if="$item.tags.indexOf(5)>-1">关注最多</span>
+                                  v-if="~$item.tags.indexOf(5)">关注最多</span>
                             <span class="danguan"
-                                  v-if="$item.tags.indexOf(6)>-1">单关</span>
+                                  v-if="~$item.tags.indexOf(6)">单关</span>
                         </div>
                     </li>
                 </ul>
@@ -276,8 +276,7 @@
             }
         },
         mounted () {
-            const {expect, tab} = this.$route.params
-            this.$store.dispatch(aTypes.fetchZqMatches, {expect, tab})
+            this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
             this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
         },
         methods: {
@@ -329,20 +328,18 @@
                 if (second >= 45 * 60) {
                     return isFirstHalf ? '45+' : '90+'
                 }
-                var minute = Math.ceil(Number(match_at) / 60)
+                let minute = Math.ceil(Number(match_at) / 60)
                 if (minute <= 0) {
                     minute = 1
                 }
                 return isFirstHalf ? minute : (minute + 45)
             },
-            matchtimeFm: (macthtime) => {
-                return macthtime.match(/\d{2}:\d{2}/)[0]
-            },
+            matchtimeFm: (macthtime) => macthtime.match(/\d{2}:\d{2}/)[0],
             truncate: function (input, length, tail) {
                 if (input.length <= length) {
                     return input
                 }
-                return input.slice(0, length) + (tail != null ? tail : '...')
+                return input.slice(0, length) + (tail || '...')
             },
             contains: function (list, item) {
                 if (!list || !list.length) {
@@ -351,7 +348,7 @@
                 return list.indexOf(item) > -1
             },
             expectFmt: function (expect) {
-                if (!expect || expect.match(/\d{4}-\d{2}-\d{2}/) == null) {
+                if (!expect || !expect.match(/\d{4}-\d{2}-\d{2}/)) {
                     return expect + ' 期'
                 }
                 return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()]

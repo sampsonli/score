@@ -111,7 +111,7 @@
 
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
-                            <router-link :to="{name: ''}" replace>
+                            <router-link :to="{name: 'football-detail-crazybet'}" replace>
                                 <span>猜球<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
@@ -147,6 +147,11 @@
             }
         },
         mounted () {
+            if (~this.$route.path.indexOf('/crazybet')) {
+                this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
+                this.changeHeader(true)
+                this.$refs.scroller.switchStop(true)
+            }
         },
         components: {
             detailScroller
@@ -164,9 +169,18 @@
             }
         },
         watch: {
-            '$route.path' () {
-//                console.log('update')
-                this.updateScroller()
+            '$route.path' (path) {
+                this.$refs.scroller.update()
+                if (~path.indexOf('/crazybet')) {
+                    this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
+                    this.changeHeader(true)
+                    this.$refs.scroller.switchStop(true)
+
+                } else {
+                    this.$refs.scroller.scrollTo(0, true)
+                    this.changeHeader(false)
+                    this.$refs.scroller.switchStop(false)
+                }
             }
         }
 

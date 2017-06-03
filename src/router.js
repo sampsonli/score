@@ -40,6 +40,7 @@ const FootballOddseAsian = () => import('~pages/detail/football/odds/asian.vue' 
 const FootballOddseRangqiu = () => import('~pages/detail/football/odds/rangqiu.vue' /* webpackChunkName: "pages/detail-football-odds-rangqiu" */)
 const FootballOddseDaxiaopan = () => import('~pages/detail/football/odds/daxiaopan.vue' /* webpackChunkName: "pages/detail-football-odds-daxiaopan" */)
 const FootballOddseBifa = () => import('~pages/detail/football/odds/bifa.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
+const FootballCrazybet = () => import('~pages/detail/football/crazybet.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
 
 export function createRouter () {
     return new VueRouter({
@@ -172,6 +173,11 @@ export function createRouter () {
                         path: 'comment',
                         component: FootballSituation,
                         name: 'football-detail-comment'
+                    },
+                    {
+                        path: 'crazybet',
+                        component: FootballCrazybet,
+                        name: 'football-detail-crazybet'
                     }
                 ]
             }

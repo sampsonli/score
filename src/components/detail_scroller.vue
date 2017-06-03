@@ -16,6 +16,7 @@
     export default {
         data () {
             return {
+                stop: false,
                 container: null,
                 content: null,
                 navigator: null,
@@ -31,12 +32,21 @@
         },
         methods: {
             raf: (cb) => window.requestAnimationFrame ? requestAnimationFrame(cb) : setTimeout(() => cb(), 16.7),
-            cancelRaf: (ref) => window.requestAnimationFrame ? cancelAnimationFrame(ref) : clearTimeout(ref),
             update () {
                 this.raf(() => {
                     this.contentHeight = this.content.offsetHeight
                     this.scrollerObj.setDimensions(this.width, this.containerHeight, this.width, this.contentHeight)
                 })
+            },
+            scrollTo (top, isAnimate) {
+                this.raf(() => {
+                    this.raf(() => {
+                        this.scrollerObj.scrollTo(0, top, isAnimate)
+                    })
+                })
+            },
+            switchStop (status) {
+                this.stop = !!status
             },
             initConfig () {
                 this.container = this.$el
@@ -98,6 +108,10 @@
                     }
                     let a = findA(e.touches[0].target)
                     if (a && a.getAttribute('href')) {
+                        return
+                    }
+                    if (this.stop) {
+                        e.preventDefault()
                         return
                     }
                     this.scrollerObj.doTouchStart(e.touches, e.timeStamp)
