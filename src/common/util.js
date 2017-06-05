@@ -20,3 +20,9 @@ export function mapMutations (muts, ns) {
     })
     return {mutations, mTypes}
 }
+
+export function wait (time) {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), time)
+    })
+}

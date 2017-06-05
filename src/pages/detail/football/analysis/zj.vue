@@ -632,6 +632,7 @@
 
 <script>
     import {aTypes} from '~store/zqdetail'
+//    import {wait} from '~common/util'
     export default {
         async asyncData ({store, route: {params}}) {
             let baseInfo = store.state.zqdetail.baseInfo
@@ -642,6 +643,7 @@
             const matchdate = matchtime.substr(0, 10)
             const stid = stageid
 
+//            await wait(3000)
             await store.dispatch(aTypes.getLeaguerank, {homeid, awayid, stid, matchdate, fid: params.fid})
             await store.dispatch(aTypes.getCupRank, {matchgroup, matchdate, stid})
             await store.dispatch(aTypes.getRecentRecord, {homeid, awayid, matchdate, leagueid: league_id, stid, limit: 10, hoa: 0})
