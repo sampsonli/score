@@ -6,12 +6,12 @@
                     <li class="" v-if="preAndNextExpect.pre">
                         <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/' + preAndNextExpect.pre}" replace>{{($route.params.tab === 'all')?'前一天':'前一期'}}</router-link>
                     </li>
-                    <li class="" v-else>{{($route.params.tab === 'all')?'前一天':'前一期'}}</li>
+                    <li class="qi-gray" v-else>{{($route.params.tab === 'all')?'前一天':'前一期'}}</li>
                     <li class="qiqh" v-tap="{methods: toggleExpectList}">{{curExpect|expectFmt}}<i class="qi-arrow"></i></li>
                     <li class="" v-if="preAndNextExpect.next">
                         <router-link :to="{path: '/home/zq/'+ $route.params.tab + '/'+ preAndNextExpect.next}" replace>{{($route.params.tab === 'all')?'后一天':'后一期'}}</router-link>
                     </li>
-                    <li class="" v-else>{{($route.params.tab === 'all')?'后一天':'后一期'}}</li>
+                    <li class="qi-gray" v-else>{{($route.params.tab === 'all')?'后一天':'后一期'}}</li>
                 </ul>
             </div>
         </div>
@@ -267,8 +267,8 @@
                         index = idx
                     }
                 })
-                result.next = this.zq.expectList[index + 1]
-                result.pre = this.zq.expectList[index - 1]
+                result.next = this.zq.expectList[index - 1]
+                result.pre = this.zq.expectList[index + 1]
                 return result
             },
             expectList () {

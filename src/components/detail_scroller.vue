@@ -66,6 +66,8 @@
                 const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
                 const transformOrigin = typeof document.body.style.transform !== 'undefined' ? 'transformOrigin' : 'webkitTransformOrigin'
                 this.head.style[transformOrigin] = '50% 100.5%'
+                let latestTop = 0
+                let outTouch = true
                 this.scrollerObj = new Scroller((left, top, zoom) => {
                     this.content.style[transform] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')'
                     if (top < 0) {
@@ -73,6 +75,19 @@
                     } else {
                         this.head.style[transform] = 'scale(1)'
                     }
+
+                    if(latestTop === top && top && outTouch) {
+                        if(top < this.headPartHeight) {
+                            if(top< this.headPartHeight/2){
+                                this.scrollTo(0, true)
+                            }else {
+                                this.scrollTo(this.headPartHeight, true)
+                            }
+                        }
+
+
+                    }
+                    latestTop = top
                     if (top >= this.headPartHeight) {
                         if (!status) {
                             status = 1
@@ -102,6 +117,7 @@
                     } else return findA(ele.parentNode)
                 }
                 this.container.addEventListener('touchstart', (e) => {
+                    outTouch = false
                     // Don't react if initial down happens on a form element
                     if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
                         return
@@ -119,14 +135,17 @@
                 }, false)
 
                 this.container.addEventListener('touchmove', (e) => {
+                    outTouch = false
                     this.scrollerObj.doTouchMove(e.touches, e.timeStamp, e.scale)
                 }, false)
 
                 this.container.addEventListener('touchend', (e) => {
+                    outTouch = true
                     this.scrollerObj.doTouchEnd(e.timeStamp)
                 }, false)
 
                 this.container.addEventListener('touchcancel', (e) => {
+                    outTouch = true
                     this.scrollerObj.doTouchEnd(e.timeStamp)
                 }, false)
                 this.navigator.style.display = 'block'
