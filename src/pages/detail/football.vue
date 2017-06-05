@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="l-flex-1 l-relative">
-            <detail-scroller ref="scroller" @switch="changeHeader">
+            <detail-scroller ref="scroller" @switch="changeHeader" @end="reachEnd">
                 <div class="zq-header _header ">
                     <div class="fen-box">
                         <!--<if: match.status == StatusCode.FIRST_HALF ||
@@ -129,6 +129,16 @@
 
         </div>
 
+        <div v-if="~$route.path.indexOf('/comment')">
+            <div class="comm-enter">
+                <div class="enter-ipt">
+                    <i class="ipt-icon"></i>
+                    <p class="ipt-txt">我来说两句…</p>
+                    <span class="ipt-count">5评</span>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 </template>
@@ -162,6 +172,9 @@
                 } else {
                     this.$el.querySelector('.detailTop').className = 'detailTop topBarMove2'
                 }
+            },
+            reachEnd () {
+                console.log('end')
             },
             updateScroller () {
                 this.$refs.scroller.update()

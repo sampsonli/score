@@ -76,16 +76,14 @@
                         this.head.style[transform] = 'scale(1)'
                     }
 
-                    if(latestTop === top && top && outTouch) {
-                        if(top < this.headPartHeight) {
-                            if(top< this.headPartHeight/2){
+                    if (latestTop === top && top && outTouch) {
+                        if (top < this.headPartHeight) {
+                            if (top < this.headPartHeight / 2) {
                                 this.scrollTo(0, true)
-                            }else {
+                            } else {
                                 this.scrollTo(this.headPartHeight, true)
                             }
                         }
-
-
                     }
                     latestTop = top
                     if (top >= this.headPartHeight) {
@@ -100,6 +98,9 @@
                             this.$emit('switch', status)
                         }
                         this.navigator.style[transform] = 'translate3d(0,' + (-top + this.headPartHeight) + 'px,0) scale(1)'
+                    }
+                    if (top === this.contentHeight - this.containerHeight && top && outTouch) {
+                        this.$emit('end')
                     }
                 }, {
                     bouncing: false,
