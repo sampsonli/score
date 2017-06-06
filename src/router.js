@@ -48,6 +48,11 @@ const FootballOddseBifa = () => import('~pages/detail/football/odds/bifa.vue' /*
 const FootballCrazybet = () => import('~pages/detail/football/crazybet.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
 const FootballComment = () => import('~pages/detail/football/comment.vue' /* webpackChunkName: "pages/detail-football-comment" */)
 
+const TeamFootball = () => import('~pages/team/football.vue')
+const TeamFootballGl = () => import('~pages/team/football/gl.vue')
+const TeamFootballSc = () => import('~pages/team/football/sc.vue')
+const TeamFootballZr = () => import('~pages/team/football/zr.vue')
+console.log()
 export function createRouter () {
     return new VueRouter({
         mode: 'history',
@@ -206,6 +211,32 @@ export function createRouter () {
                         path: 'crazybet',
                         component: FootballCrazybet,
                         name: 'football-detail-crazybet'
+                    }
+                ]
+            },
+            {
+                path: '/team/football/:tid',
+                component: TeamFootball,
+                name: 'team-football',
+                children: [
+                    {
+                        path: 'sc',
+                        component: TeamFootballSc,
+                        name: 'team-football-sc'
+                    },
+                    {
+                        path: 'gl',
+                        component: TeamFootballGl,
+                        name: 'team-football-gl'
+                    },
+                    {
+                        path: 'zr',
+                        component: TeamFootballZr,
+                        name: 'team-football-zr'
+                    },
+                    {
+                        path: '*',
+                        redirect: 'sc'
                     }
                 ]
             }

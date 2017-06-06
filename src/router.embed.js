@@ -20,6 +20,11 @@ import BfycHotcool from '~pages/bfyc/hotcool.vue'
 import BfycRecord from '~pages/bfyc/record.vue'
 import FootballDetail from '~pages/detail/football.vue'
 
+import TeamFootball from '~pages/team/football.vue'
+import TeamFootballSc from '~pages/team/football/sc.vue'
+import TeamFootballGl from '~pages/team/football/gl.vue'
+import TeamFootballZr from '~pages/team/football/zr.vue'
+
 Vue.use(VueRouter)
 const mode = process.env.VUE_ENV === 'app' ? 'hash' : 'history'
 
@@ -110,6 +115,32 @@ export function createRouter () {
                 path: 'detail/football',
                 component: FootballDetail,
                 name: 'detail-football'
+            },
+            {
+                path: 'team/football/:tid',
+                component: TeamFootball,
+                name: 'team-football',
+                children: [
+                    {
+                        path: 'sc',
+                        component: TeamFootballSc,
+                        name: 'team-football-sc'
+                    },
+                    {
+                        path: 'gl',
+                        component: TeamFootballGl,
+                        name: 'team-football-gl'
+                    },
+                    {
+                        path: 'zr',
+                        component: TeamFootballZr,
+                        name: 'team-football-zr'
+                    },
+                    {
+                        path: '*',
+                        redirect: 'sc'
+                    }
+                ]
             }
         ]
     })

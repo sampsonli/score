@@ -5,7 +5,7 @@
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
-            <div onclick="home.goLeague()" class="r-sn f24">{{baseInfo.simpleleague}}</div>
+            <div @click="goTeam(baseInfo.awayid)" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
 
             <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
@@ -47,17 +47,17 @@
                         </div>
                         <!--<if: match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED />-->
                         <!--<if: match.status == StatusCode.NOT_STARTED />-->
-                        <div class="left-img" onclick="location.href='team_home/index.html#!/team/zq/5535/sc'">
+                        <div class="left-img" v-tap="{methods: goTeam, teamId: baseInfo.homeid}">
                             <div class="img-box"><img
-                                    src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_5535.png">
+                                    :src="baseInfo.homelogo">
                             </div>
                             <h2 class="left-name f28">{{baseInfo.homesxname}}<!--<if: match.zlc == 1 />--></h2>
 
                             <p class="header-pm f20">{{baseInfo.hstr}}</p>
                         </div>
-                        <div class="right-img" onclick="location.href='team_home/index.html#!/team/zq/808/sc'">
+                        <div class="right-img" v-tap="{methods: goTeam, teamId: baseInfo.awayid}">
                             <div class="img-box"><img
-                                    src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_808.png">
+                                    :src="baseInfo.awaylogo">
                             </div>
                             <h2 class="right-name f28">{{baseInfo.awaysxname}}</h2>
 
@@ -178,6 +178,9 @@
             },
             updateScroller () {
                 this.$refs.scroller.update()
+            },
+            goTeam ({teamId}) {
+                this.$router.push(`/team/football/${teamId}/sc`)
             }
         },
         watch: {
