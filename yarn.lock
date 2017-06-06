@@ -1716,6 +1716,12 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
+echarts@^3.6.0:
+  version "3.6.1"
+  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.6.1.tgz#6cb31173c6ac05ba713a613cdf4dd72145e0ab6f"
+  dependencies:
+    zrender "^3.5.1"
+
 editorconfig@^0.13.2:
   version "0.13.2"
   resolved "http://registry.npm.taobao.org/editorconfig/download/editorconfig-0.13.2.tgz#8e57926d9ee69ab6cb999f027c2171467acceb35"
@@ -3127,6 +3133,10 @@ lodash.chunk@^4.2.0:
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "http://registry.npm.taobao.org/lodash.cond/download/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "http://registry.npm.taobao.org/lodash.debounce/download/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
 lodash.defaults@^4.2.0:
   version "4.2.0"
@@ -5154,6 +5164,13 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-echarts@^2.4.0:
+  version "2.4.0"
+  resolved "http://registry.npm.taobao.org/vue-echarts/download/vue-echarts-2.4.0.tgz#28654069ea4cf9ac7426ab0f5f723c77b8cd5f36"
+  dependencies:
+    echarts "^3.6.0"
+    lodash.debounce "^4.0.8"
+
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
@@ -5451,3 +5468,7 @@ yuglify@*:
     nopt "~2.1.1"
     uglify-js "~1.3.4"
     ycssmin "~1.0.1"
+
+zrender@^3.5.1:
+  version "3.5.1"
+  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.5.1.tgz#70494096f017684c714ddd8bfa24cda6feecec34"

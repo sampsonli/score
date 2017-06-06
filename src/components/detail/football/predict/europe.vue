@@ -172,10 +172,10 @@
     import {mTypes} from '~store/zqdetail'
     export default {
         data () {
-          return {
-              tab: 'history',
-              panTimeMap: ['初赔', '赛前24h', '赛前12h', '赛前6h', '赛前5h', '赛前4h', '赛前3h', '赛前2.5h', '赛前2h', '赛前1.5h', '赛前1h', '赛前0.5h', '终赔']
-          }
+            return {
+                tab: 'history',
+                panTimeMap: ['初赔', '赛前24h', '赛前12h', '赛前6h', '赛前5h', '赛前4h', '赛前3h', '赛前2.5h', '赛前2h', '赛前1.5h', '赛前1h', '赛前0.5h', '终赔']
+            }
         },
         methods: {
             closeDialog () {
