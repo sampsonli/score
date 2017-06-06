@@ -754,7 +754,7 @@
                 </div>
             </div>
         </div>
-        <div class="popFooter">
+        <div class="popFooter" v-tap="{methods: closeDialog}">
             <span class="arrow"></span>
 
             <h2 class="f30">胜平负</h2>
@@ -762,7 +762,13 @@
     </div>
 </template>
 <script>
+    import {mTypes} from '~store/zqdetail'
     export default {
+        methods: {
+            closeDialog () {
+                this.$store.commit(mTypes.setDialog, null)
+            }
+        }
 
     }
 </script>
