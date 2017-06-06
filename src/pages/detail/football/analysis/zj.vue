@@ -644,12 +644,20 @@
             const stid = stageid
 
 //            await wait(3000)
-            await store.dispatch(aTypes.getLeaguerank, {homeid, awayid, stid, matchdate, fid: params.fid})
+            await [
+                store.dispatch(aTypes.getLeaguerank, {homeid, awayid, stid, matchdate, fid: params.fid}),
+                store.dispatch(aTypes.getCupRank, {matchgroup, matchdate, stid}),
+                store.dispatch(aTypes.getRecentRecord, {homeid, awayid, matchdate, leagueid: league_id, stid, limit: 10, hoa: 0}),
+                store.dispatch(aTypes.getMacauNews, params),
+                store.dispatch(aTypes.getFifarank, {homeid, awayid}),
+                store.dispatch(aTypes.getFutureMatch, {homeid, awayid, matchdate, fid: params.fid})
+            ]
+            /* await store.dispatch(aTypes.getLeaguerank, {homeid, awayid, stid, matchdate, fid: params.fid})
             await store.dispatch(aTypes.getCupRank, {matchgroup, matchdate, stid})
             await store.dispatch(aTypes.getRecentRecord, {homeid, awayid, matchdate, leagueid: league_id, stid, limit: 10, hoa: 0})
             await store.dispatch(aTypes.getMacauNews, params)
             await store.dispatch(aTypes.getFifarank, {homeid, awayid})
-            await store.dispatch(aTypes.getFutureMatch, {homeid, awayid, matchdate, fid: params.fid})
+            await store.dispatch(aTypes.getFutureMatch, {homeid, awayid, matchdate, fid: params.fid}) */
         },
         computed: {
             analysis () {

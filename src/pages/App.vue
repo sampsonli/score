@@ -4,6 +4,9 @@
     </div>
 </template>
 <script>
+    import Vue from 'vue'
+    import vueTap from 'v-tap'
+    Vue.use(vueTap)
     export default {
         mounted () {
             this.$store.dispatch('initWebsocket')

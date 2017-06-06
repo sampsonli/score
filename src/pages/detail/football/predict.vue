@@ -3,7 +3,7 @@
         <div class="gl-nav">胜平负 <span class="yc-more"></span></div>
         <div class="box-ycInner">
 
-            <!--<if: predictEurope />--><div class="dataBox">
+            <!--<if: predictEurope />--><div class="dataBox" v-tap="{methods: selectTab, tab: 'europe'}">
             <ul class="dataItem">
                 <li class="itemL red2">
                     <em class="num">70</em>
@@ -160,3 +160,17 @@
             500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
         </div></div>
 </template>
+<script>
+    import chart from '~components/detail/football/predict/chart.vue'
+    import {mTypes} from '~store/zqdetail'
+    export default {
+        methods: {
+            selectTab ({tab}) {
+                this.$store.commit(mTypes.setDialog, chart)
+            }
+        },
+        mounted () {
+
+        }
+    }
+</script>

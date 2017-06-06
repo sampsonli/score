@@ -18,7 +18,11 @@ const state = {
         leaguerank: null
     },
     baseInfo: null,
-    europe: null
+    europe: null,
+    outer: {
+        component: null,
+        params: null
+    }
 }
 const actionsInfo = mapActions({
     async getBaseInfo ({commit}, fid) {
@@ -70,6 +74,9 @@ const actionsInfo = mapActions({
 }, ns)
 
 const mutationsInfo = mapMutations({
+    setDialog (state, component) {
+        state.outer.component = component
+    },
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo
     },

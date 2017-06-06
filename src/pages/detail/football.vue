@@ -121,13 +121,21 @@
                 <div class="navigator " style="width: 0"></div>
                 <div class="main-inner2">
                     <router-view></router-view>
-
-
                 </div>
 
             </detail-scroller>
 
         </div>
+        <div  v-if="outer.component" class="l-full model-back"></div>
+
+        <transition name="slide">
+            <div v-if="outer.component" class="l-full" style="z-index: 101">
+
+                <component :is="outer.component"></component>
+
+            </div>
+        </transition>
+
 
         <div v-if="~$route.path.indexOf('/comment')">
             <div class="comm-enter">
@@ -154,6 +162,9 @@
         computed: {
             baseInfo () {
                 return this.$store.state.zqdetail.baseInfo
+            },
+            outer () {
+                return this.$store.state.zqdetail.outer
             }
         },
         mounted () {
@@ -208,6 +219,25 @@
 
     .navigator {
         top: 0
+    }
+
+    .model-back {
+        background-color: rgba(0,0,0,.3);
+        z-index: 100;
+    }
+
+    .slide-enter-active, .slide-leave-active {
+        -webkit-transition: -webkit-transform .3s ease;
+        transition: transform .3s ease;
+    }
+    .slide-enter-active, .slide-leave {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    .slide-leave-active, .slide-enter {
+        -webkit-transform: translate(0, 100%);
+        transform: translate(0, 100%);
     }
 
 

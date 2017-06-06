@@ -144,15 +144,11 @@ const mutationsInfo = mapMutations({
     },
     updateZqMatch (state, {info, idx}) {
         let match = {...state.zq.matches[idx], ...info}
-        let matches = [...state.zq.matches]
-        matches[idx] = match
-        state.zq.matches = matches
+        state.zq.matches.splice(idx, 1, match)
     },
     updateLqMatch (state, {info, idx}) {
         let match = {...state.lq.matches[idx], ...info}
-        let matches = [...state.lq.matches]
-        matches[idx] = match
-        state.zq.matches = matches
+        state.lq.matches.splice(idx, 1, match)
     },
     setLqMatches (state, data) {
         let {curr_expect, expect_list, matches, tab} = data

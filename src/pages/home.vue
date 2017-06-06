@@ -55,10 +55,8 @@
 </style>
 
 <script>
-    import Vue from 'vue'
-    import vueTap from 'v-tap'
+
     import league from '~components/league.vue'
-    Vue.use(vueTap)
 
     export default{
 

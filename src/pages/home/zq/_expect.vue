@@ -30,7 +30,7 @@
 
                     <li class="list-item" :class="{'__first_no_end': $item._flag}"
                         v-tap="{methods: goDetail, fid: $item.fid}"
-                        :id="$item.fid"
+                        :key="$item"
                         v-for="$item in showedMatches">
                         <div class="list-tit">
                             <span class="list-day"> {{$item.order}}&nbsp;&nbsp;{{$item.simpleleague}}</span>
