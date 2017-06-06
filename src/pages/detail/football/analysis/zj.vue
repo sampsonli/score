@@ -640,16 +640,7 @@
             }
             const {stageid, matchtime, homeid, awayid, league_id, matchgroup} = baseInfo
             const matchdate = matchtime.substr(0, 10)
-            const stid = stageid
-
-            await Promise.all([
-                store.dispatch(aTypes.getLeaguerank, {homeid, awayid, stid, matchdate, fid: params.fid}),
-                store.dispatch(aTypes.getCupRank, {matchgroup, matchdate, stid}),
-                store.dispatch(aTypes.getRecentRecord, {homeid, awayid, matchdate, leagueid: league_id, stid, limit: 10, hoa: 0}),
-                store.dispatch(aTypes.getMacauNews, params),
-                store.dispatch(aTypes.getFifarank, {homeid, awayid}),
-                store.dispatch(aTypes.getFutureMatch, {homeid, awayid, matchdate, fid: params.fid})
-            ])
+            await store.dispatch(aTypes.getAnalysisZj, {homeid, awayid, stid: stageid, matchdate, matchgroup, fid: params.fid, leagueid: league_id, limit: 10, hoa: 0})
         },
         computed: {
             analysis () {
