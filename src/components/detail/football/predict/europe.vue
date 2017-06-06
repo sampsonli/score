@@ -140,7 +140,8 @@
 
                 </div>
                 <div class="popDetail" v-if="tab === 'trend'">
-                    <div class="chart-yuce" _echarts_instance_="ec_1496719011429" style="-webkit-tap-highlight-color: transparent; -webkit-user-select: none; position: relative; background: transparent;"><div style="position: relative; overflow: hidden; width: 690px; height: 440px; padding: 0px; margin: 0px; border-width: 0px;"><canvas width="1380" height="880" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 690px; height: 440px; -webkit-user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+                    <echart-bar-line class="chart-yuce" name-bar="主胜概率" name-line="赔率趋势" :data-bar="outter.chart.nbars" :data-line="outter.chart.curve"></echart-bar-line>
+
                     <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
                         <tbody>
                         <tr>
@@ -170,12 +171,16 @@
 </template>
 <script>
     import {mTypes} from '~store/zqdetail'
+    import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     export default {
         data () {
             return {
                 tab: 'history',
                 panTimeMap: ['初赔', '赛前24h', '赛前12h', '赛前6h', '赛前5h', '赛前4h', '赛前3h', '赛前2.5h', '赛前2h', '赛前1.5h', '赛前1h', '赛前0.5h', '终赔']
             }
+        },
+        components: {
+            echartBarLine
         },
         methods: {
             closeDialog () {

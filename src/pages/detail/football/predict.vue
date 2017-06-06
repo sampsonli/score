@@ -27,7 +27,7 @@
                     </ul>
                 </div>
 
-                <echart-bar-line class="chart-yuce" name-bar="主胜概率" name-line="赔率趋势" :data-bar="predictEurope.outter.chart.nbars" :data-line="predictEurope.outter.chart.curve"></echart-bar-line>
+                <echart-bar-line v-if="predictEurope" v-tap="{methods: selectTab, tab: 'europe'}"  class="chart-yuce" name-bar="主胜概率" name-line="赔率趋势" :data-bar="predictEurope.outter.chart.nbars" :data-line="predictEurope.outter.chart.curve"></echart-bar-line>
 
                 <div class="feed-back" v-if="!predictEurope">
                     <div class="feed-box">
@@ -66,13 +66,8 @@
                     </ul>
                 </div>
 
-                <div class="chart-yuce" v-if="predictAsian" v-tap="{methods: selectTab, tab: 'asian'}" drunk-echart-bar-line="{
-        'nameBar':'赢盘概率',
-        'nameLine':'赔率趋势',
-        'dataBar':predictAsian.outter.chart.nbars,
-        'dataLine':predictAsian.outter.chart.curve
-    }">
-                </div>
+                <echart-bar-line v-if="predictAsian" v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率" name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars" :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
+
                 <div class="feed-back" drunk-if="!predictAsian">
                     <div class="feed-box">
                         <em>暂无数据</em>
@@ -111,13 +106,9 @@
                     </ul>
                 </div>
 
-                <div class="chart-yuce" v-if="predictDaXiao" v-tap="{methods: selectTab, tab: 'daXiao'}" drunk-echart-bar-line="{
-        'nameBar':'大球概率',
-        'nameLine':'赔率趋势',
-        'dataBar':predictDaXiao.outter.chart.nbars,
-        'dataLine':predictDaXiao.outter.chart.curve
-    }">
-                </div>
+                <echart-bar-line v-if="predictDaXiao" v-tap="{methods: selectTab, tab: 'daXiao'}"  class="chart-yuce" name-bar="大球概率" name-line="赔率趋势" :data-bar="predictDaXiao.outter.chart.nbars" :data-line="predictDaXiao.outter.chart.curve"></echart-bar-line>
+
+
                 <div class="feed-back" v-if="!predictDaXiao">
                     <div class="feed-box">
                         <em>暂无数据</em>
