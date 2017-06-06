@@ -161,9 +161,12 @@
         </div></div>
 </template>
 <script>
-    import chart from '~components/detail/football/predict/chart.vue'
-    import {mTypes} from '~store/zqdetail'
+    import chart from '~components/detail/football/predict/europe.vue'
+    import {mTypes, aTypes} from '~store/zqdetail'
     export default {
+        async asyncData ({store, route: {params}}) {
+            await store.dispatch(aTypes.getPredict, params.fid)
+        },
         methods: {
             selectTab ({tab}) {
                 this.$store.commit(mTypes.setDialog, chart)

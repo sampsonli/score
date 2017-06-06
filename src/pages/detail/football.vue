@@ -126,13 +126,10 @@
             </detail-scroller>
 
         </div>
-        <div  v-if="outer.component" class="l-full model-back"></div>
-
+        <div  v-if="outer.component" class="popLayer"></div>
         <transition name="slide">
             <div v-if="outer.component" class="l-full" style="z-index: 101">
-
                 <component :is="outer.component"></component>
-
             </div>
         </transition>
 
@@ -221,10 +218,6 @@
         top: 0
     }
 
-    .model-back {
-        background-color: rgba(0,0,0,.3);
-        z-index: 100;
-    }
 
     .slide-enter-active, .slide-leave-active {
         -webkit-transition: -webkit-transform .3s ease;
