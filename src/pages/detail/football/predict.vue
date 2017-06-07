@@ -68,7 +68,7 @@
 
                 <echart-bar-line v-if="predictAsian" v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率" name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars" :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
 
-                <div class="feed-back" v-if="!predictAsian">
+                <div class="feed-back" drunk-if="!predictAsian">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -152,13 +152,17 @@
                                 class="item-info2">{{predictScore.outter.nums[2].num}}球</span></li>
                     </ul>
                 </div>
-                <div class="chart-yuce" style="height: 5.2rem;" v-if="predictScore" drunk-echart-poisson="{
+
+
+                <echart-position v-if="predictScore" class="chart-yuce chart-position" :name1="match.homesxname+'(主)'" :name2="match.awaysxname" :data1="predictScore.u.hu" :data2="predictScore.u.au"></echart-position>
+
+                <!--<div class="chart-yuce" style="height: 5.2rem;" v-if="predictScore" drunk-echart-poisson="{
         'name1':match.homesxname+'(主)',
         'name2':match.awaysxname,
         'data1':predictScore.u.hu,
         'data2':predictScore.u.au
     }">
-                </div>
+                </div>-->
                 <div class="feed-back" v-if="!predictScore">
                     <div class="feed-box">
                         <em>暂无数据</em>
@@ -215,7 +219,7 @@
                                 class="item-info2">{{predictHalf.outter.nums[2].num}}球</span></li>
                     </ul>
                 </div>
-                <div class="feed-back" v-if="!predictHalf">
+                <div class="feed-back" drunk-if="!predictHalf">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -230,13 +234,14 @@
 <script>
     import chart from '~components/detail/football/predict/europe.vue'
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
+    import echartPosition from '~components/detail/football/predict/echartPosition.vue'
     import {mTypes, aTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getPredict, params.fid)
         },
         components: {
-            echartBarLine
+            echartBarLine, echartPosition
         },
         methods: {
             selectTab ({tab}) {
@@ -244,6 +249,9 @@
             }
         },
         computed: {
+            match () {
+                return this.$store.state.zqdetail.baseInfo
+            },
             predictEurope () {
                 return this.$store.state.zqdetail.predict.europe
             },
@@ -266,3 +274,8 @@
         }
     }
 </script>
+<style>
+    .chart-position {
+        height: 5.2rem
+    }
+</style>
