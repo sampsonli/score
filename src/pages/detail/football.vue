@@ -47,7 +47,7 @@
                         </div>
                         <!--<if: match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED />-->
                         <!--<if: match.status == StatusCode.NOT_STARTED />-->
-                        <div class="left-img" onclick="location.href='team_home/index.html#!/team/zq/5535/sc'">
+                        <div class="left-img" v-tap="{methods: goTeam, teamId: baseInfo.homeid}">
                             <div class="img-box"><img
                                     :src="baseInfo.homelogo">
                             </div>
@@ -55,7 +55,7 @@
 
                             <p class="header-pm f20">{{baseInfo.hstr}}</p>
                         </div>
-                        <div class="right-img" onclick="location.href='team_home/index.html#!/team/zq/808/sc'">
+                        <div class="right-img" v-tap="{methods: goTeam, teamId: baseInfo.awayid}">
                             <div class="img-box"><img
                                     :src="baseInfo.awaylogo">
                             </div>
@@ -186,6 +186,9 @@
             },
             updateScroller () {
                 this.$refs.scroller.update()
+            },
+            goTeam ({teamId}) {
+                this.$router.push(`/team/football/${teamId}/sc`)
             }
         },
         watch: {
@@ -216,6 +219,12 @@
 
     .navigator {
         top: 0
+    }
+
+    .sktab-arrow {
+         border: none;
+         margin-left: auto;
+
     }
 
 

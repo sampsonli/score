@@ -6,6 +6,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './home'
 import zqdetail from './zqdetail'
+import teamZq from './team/zq'
+// import teamLq from './team/lq';
 Vue.use(Vuex)
 
 const state = {
@@ -137,7 +139,7 @@ export function createStore () {
         mutations,
         getters,
         modules: {
-            home, zqdetail
+            home, zqdetail, teamZq
         }
     })
 }
