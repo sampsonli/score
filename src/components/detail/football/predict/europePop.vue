@@ -1,5 +1,5 @@
 <template>
-    <div class="popBox l-full l-flex-column  slide-bottom-to-top drunk-created">
+    <div class="popBox l-full l-flex-column  slide-bottom-to-top">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
         <div class="popInner box-yc">
             <div class="full-scroll">
@@ -64,7 +64,7 @@
                             </table>
                         </li>
                         <li class="itemR">
-                            <!--<if: predicttab=='europe' />--><div class="chart-similar" _echarts_instance_="ec_1496719011430" style="height: 195px; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; position: relative; background: transparent;"><div style="position: relative; overflow: hidden; width: 160px; height: 195px; padding: 0px; margin: 0px; border-width: 0px;"><canvas width="320" height="390" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 160px; height: 195px; -webkit-user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+                            <echart-line :oddslist="inner.this_match.oddslist" class="chart-similar"></echart-line>
                         </li>
                     </ul>
                     <div class="popDetail-pl">
@@ -131,10 +131,8 @@
 
                         <li class="itemR">
                             <em class="similar-num">{{item.similarity}}</em>
+                            <echart-line :oddslist="item.oddslist" class="chart-similar"></echart-line>
 
-                            <div class="chart-similar" drunk-if="predicttab=='europe'"
-                                 drunk-echart-line="item.oddslist">
-                            </div>
                         </li>
                     </ul>
 
@@ -172,6 +170,7 @@
 <script>
     import {mTypes} from '~store/zqdetail'
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
+    import echartLine from '~components/detail/football/predict/echartLine.vue'
     export default {
         data () {
             return {
@@ -180,7 +179,7 @@
             }
         },
         components: {
-            echartBarLine
+            echartBarLine, echartLine
         },
         methods: {
             closeDialog () {

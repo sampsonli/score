@@ -154,15 +154,8 @@
                 </div>
 
 
-                <echart-position v-if="predictScore" class="chart-yuce chart-position" :name1="match.homesxname+'(主)'" :name2="match.awaysxname" :data1="predictScore.u.hu" :data2="predictScore.u.au"></echart-position>
+                <echart-position v-if="predictScore" class="chart-yuce" style="height: 5.2rem" :name1="match.homesxname+'(主)'" :name2="match.awaysxname" :data1="predictScore.u.hu" :data2="predictScore.u.au"></echart-position>
 
-                <!--<div class="chart-yuce" style="height: 5.2rem;" v-if="predictScore" drunk-echart-poisson="{
-        'name1':match.homesxname+'(主)',
-        'name2':match.awaysxname,
-        'data1':predictScore.u.hu,
-        'data2':predictScore.u.au
-    }">
-                </div>-->
                 <div class="feed-back" v-if="!predictScore">
                     <div class="feed-box">
                         <em>暂无数据</em>
@@ -232,7 +225,10 @@
     </div>
 </template>
 <script>
-    import chart from '~components/detail/football/predict/europe.vue'
+//    import europePop from '~components/detail/football/predict/europePop.vue'
+    const europePop = () => import( '~components/detail/football/predict/europePop.vue' /* webpackChunkName: "components/detail-football-predict-europe-pop" */)
+    const asianPop = () => import( '~components/detail/football/predict/asianPop.vue' /* webpackChunkName: "components/detail-football-predict-asian-pop" */)
+
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'
     import {mTypes, aTypes} from '~store/zqdetail'
@@ -245,7 +241,18 @@
         },
         methods: {
             selectTab ({tab}) {
-                this.$store.commit(mTypes.setDialog, chart)
+                let component = null
+                switch (tab) {
+                    case 'europe':
+                        component = europePop
+                        break
+                    case 'asian':
+                        component = asianPop
+                        break
+
+                }
+
+                this.$store.commit(mTypes.setDialog, component)
             }
         },
         computed: {
