@@ -5,24 +5,30 @@ const ns = 'team'
 const state = {
     teamInfo: null,
     teamMatches: null,
-    teamMembers: null
+    teamMembers: null,
+    teamId_sc: null,
+    teamId_gl: null,
+    teamid_zr: null
 }
 
 const actionsInfo = mapActions({
     async requestTeamInfo ({commit}, tid) {
         const teamInfo = await ajax.get(`/library/zq/teaminfo?teamid=${tid}`)
         commit(mTypes.setTeamInfo, teamInfo)
+        commit(mTypes.setTeamId_gl, tid)
         return teamInfo
     },
     async requestTeamMatches ({commit}, tid) {
         const teamMatches = await ajax.get(`/library/zq/teammatches?teamid=${tid}`)
         commit(mTypes.setTeamMatches, teamMatches)
+        commit(mTypes.setTeamId_sc, tid)
         return teamMatches
     },
     async requestTeamMember ({commit}, tid) {
         console.log('this is member2')
         const teamMember = await ajax.get(`/library/zq/teammembers?teamid=${tid}`)
         commit(mTypes.setTeamMembers, teamMember)
+        commit(mTypes.setTeamId_zr, tid)
         return teamMember
     },
     getTeamInfo ({commit}) {
@@ -53,8 +59,25 @@ const mutationsInfo = mapMutations({
         return state.teamMembers
     },
     setTeamMembers (state, teamMembers) {
-        console.log('this is member3')
         state.teamMembers = teamMembers
+    },
+    getTeamId () {
+        return state.teamId
+    },
+    setTeamId_sc (state, teamId) {
+        console.log('--------')
+        console.log(teamId)
+        state.teamId_sc = teamId
+    },
+    setTeamId_gl (state, teamId) {
+        console.log('--------')
+        console.log(teamId)
+        state.teamId_gl = teamId
+    },
+    setTeamId_zr (state, teamId) {
+        console.log('--------')
+        console.log(teamId)
+        state.teamId_zr = teamId
     }
 }, ns)
 const actions = actionsInfo.actions

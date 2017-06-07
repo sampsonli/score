@@ -14,7 +14,7 @@
                         <td align="left"> <strong>{{member.name}}</strong>
                             <p>{{member.nation}}</p>
                         </td>
-                        <td align="right"> <strong>{{member.number}}</strong>
+                        <td align="right"> <strong>{{member.number | number}}</strong>
                             <p>{{showGoalResult(member)}}</p>
                         </td>
                     </tr>
@@ -26,15 +26,26 @@
 
 <script>
 export default {
-    props: [
-        'type',
-        'members'
-    ],
+    props: {
+        type: {
+            type: String,
+            required: true
+        },
+        members: {
+            type: Array,
+            required: true
+        }
+    },
     methods: {
         showGoalResult (member) {
             let goalStr = member.goals ? member.goals + '球' : member.goals
             let assistsStr = member.assists ? member.assists + '助' : member.assists
             return goalStr + assistsStr
+        }
+    },
+    filters: {
+        number (num) {
+            return num ? (num + '号') : '--'
         }
     }
 }

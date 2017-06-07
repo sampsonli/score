@@ -28,6 +28,10 @@ import {
     aTypes
 } from '~store/team/zq'
 export default {
+    // async asyncData ({store, route: {params}}) {
+    //     if (store.state.teamZq.teamInfo && store.state.teamZq.teamInfo.teamId === params.fid) return
+    //     await store.dispatch(aTypes.requestTeamInfo, params.fid)
+    // },
     computed: {
         teamInfo () {
             return this.$store.state.teamZq.teamInfo
@@ -39,7 +43,7 @@ export default {
             return this.$store.state.teamZq.teamMember
         },
         makeCapTip () {
-            return this.teamInfo.homefieldcap ? (this.teamInfo.teamsxname + '-容纳' + this.teamInfo.homefieldcap + '人') : ''
+            return this.teamInfo.homefieldcap ? (this.teamInfo.teamhomefield + '-容纳' + this.teamInfo.homefieldcap + '人') : ''
         },
         teamId () {
             return this.$route.params.tid
@@ -52,5 +56,7 @@ export default {
 </script>
 
 <style>
-
+    .top_0 {
+        margin-top: 0;
+    }
 </style>
