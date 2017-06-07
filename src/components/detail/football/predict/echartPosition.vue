@@ -30,7 +30,7 @@
         },
         data () {
             return {
-                xAxisData: [0, 1, 2, 3, 4, 5, 6],
+                xAxisData: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         mounted () {
@@ -51,26 +51,26 @@
                         textStyle: {
                             fontSize: fontSize
                         },
-                        position: function (p) {   //其中p为当前鼠标的位置
-                            return [p[0] + 20, p[1] * 0.4];
+                        position: function (p) {   // 其中p为当前鼠标的位置
+                            return [p[0] + 20, p[1] * 0.4]
                         },
                         padding: [10, 20, 10, 20],
                         formatter: function (prams) {
-                            let str = ' <span style="color:#d3553d;font-size:26px">{c0}%</span> | <span style="color:#437ba8;font-size:26px">{c1}%</span>';
+                            let str = ' <span style="color:#d3553d;font-size:26px">{c0}%</span> | <span style="color:#437ba8;font-size:26px">{c1}%</span>'
                             if (prams && prams.length === 2) {
-                                str = str.replace(/{c0}/g, prams[0].data);
-                                str = str.replace(/{c1}/g, prams[1].data);
+                                str = str.replace(/{c0}/g, prams[0].data)
+                                str = str.replace(/{c1}/g, prams[1].data)
                             }
                             if (prams && prams.length === 1) {
                                 if (prams[0].seriesName.indexOf('主') > -1) {
-                                    str = str.replace(/{c0}/g, prams[0].data);
-                                    str = str.replace(/{c1}%/g, '');
+                                    str = str.replace(/{c0}/g, prams[0].data)
+                                    str = str.replace(/{c1}%/g, '')
                                 } else {
-                                    str = str.replace(/{c0}%/g, '');
-                                    str = str.replace(/{c1}/g, prams[0].data);
+                                    str = str.replace(/{c0}%/g, '')
+                                    str = str.replace(/{c1}/g, prams[0].data)
                                 }
                             }
-                            return str;
+                            return str
                         },
                         backgroundColor: 'rgba(255,255,255,0.96)',
                         borderWidth: 1,
@@ -90,7 +90,7 @@
                         itemGap: 30,
                         top: 40,
                         textStyle: {
-                            fontSize: this.isAndroid ? (this.fontSize / 2) : this.fontSize,
+                            fontSize: this.isAndroid ? (fontSize / 2) : fontSize,
                             color: '#515e6d'
                         }
                     },
