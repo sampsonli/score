@@ -11,7 +11,15 @@
             </ul>
 
         </div>
+        <div class="zj-nav noborder" v-if="!~$route.path.indexOf('bifa')"> 赔率列表
+            <ul class="time-item">
+                <li class="time-item-cur" onclick="_hmt.push(['_trackEvent','zq_detail','click','odds_opdz'])"
+                    drunk-on="click:onCustomOdds()">编辑
+                </li>
+            </ul>
+        </div>
         <div>
+
             <router-view></router-view>
         </div>
 

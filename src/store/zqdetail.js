@@ -36,7 +36,11 @@ const state = {
         }
     },
     baseInfo: null,
-    europe: null,
+    odds: {
+        europe: null,
+        bifa: null
+    },
+
     predict: {
         europe: null,
         asian: null,
@@ -55,16 +59,15 @@ const actionsInfo = mapActions({
         commit(mTypes.setBaseInfo, baseInfo)
         return baseInfo
     },
-    /**
-     * @deprecated
-     * @param commit
-     * @param fid
-     * @returns {Promise.<*>}
-     */
-    async getEurope ({commit}, fid) {
+    async getOddsEurope ({commit}, fid) {
         const europe = await ajax.get(`/score/zq/europe?fid=${fid}`)
-        commit(mTypes.setEurope, europe)
+        commit(mTypes.setOddsEurope, europe)
         return europe
+    },
+    async getOddsBifa ({commit}, fid) {
+        const bifa = await ajax.get(`/score/zq/spdex2?fid=${fid}`)
+        commit(mTypes.setOddsBifa, bifa)
+        return bifa
     },
     async getAnalysisZj ({commit}, {homeid, awayid, matchdate, matchgroup, stid, fid, leagueid, limit, hoa}) {
         let result = await Promise.all([
@@ -136,8 +139,11 @@ const mutationsInfo = mapMutations({
         state.predict.score = score
         state.predict.half = half
     },
-    setEurope (state, europe) {
-        state.europe = europe
+    setOddsEurope (state, europe) {
+        state.odds.europe = europe
+    },
+    setOddsBifa (state, bifa) {
+        state.odds.bifa = bifa
     },
     setAnalysisZj (state, {leaguerank, cuprank, recentRecord, macauNews, fifarank, futureMatch, jzdata}) {
         state.analysis.zj.leaguerank = leaguerank

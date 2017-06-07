@@ -1,29 +1,26 @@
 <template>
+   <!-- <div>
+        <div class="pl-box-hd">
+            <table cellspacing="0" cellpadding="0" border="0" class="pl-table" width="100%">
+                <tr>
+                    <th width="18%">公司</th>
+                    <th width="15%"></th>
+                    <th width="20%">水</th>
+                    <th>盘口</th>
+                    <th width="20%">水</th>
+                </tr>
+            </table>
+        </div>
 
+        <widget-prompt-view
+                src="widget/prompt.html"
+                drunk-if="!isRequesting && !oddsDataMap.asian || !oddsDataMap.asian.odds || !oddsDataMap.asian.odds.length"
+                extra-text="很抱歉，没有数据"
+                small-size
+                type="no-data">
+        </widget-prompt-view>
 
-    <div class="zhedie-box">
-        <!--<if: subtab != 'bifa' />--><div class="zj-nav noborder"> 赔率列表
-                <ul class="time-item">
-        <li class="time-item-cur" onclick="_hmt.push(['_trackEvent','zq_detail','click','odds_opdz'])">编辑
-                    </li>
-    </ul>
-    </div>
-        <!--<if: subtab === 'europe' />-->
-        <!--<if: subtab === 'asian' />--><div><div class="pl-box-hd">
-        <table cellspacing="0" cellpadding="0" border="0" class="pl-table" width="100%">
-            <tbody><tr>
-                <th width="18%">公司</th>
-                <th width="15%"></th>
-                <th width="20%">水</th>
-                <th>盘口</th>
-                <th width="20%">水</th>
-            </tr>
-            </tbody></table>
-    </div>
-
-        <!--<if: !isRequesting && !oddsDataMap.asian || !oddsDataMap.asian.odds || !oddsDataMap.asian.odds.length />-->
-
-        <!--<if: oddsDataMap.asian.odds && oddsDataMap.asian.odds.length />--><div class="pl-box-bd">
+        <div class="pl-box-bd" drunk-if="oddsDataMap.asian.odds && oddsDataMap.asian.odds.length">
             <table cellspacing="0" cellpadding="0" border="0" class="pl-table" width="100%">
                 <colgroup>
                     <col width="18%">
@@ -33,297 +30,42 @@
                     <col width="20%">
                 </colgroup>
 
-                <tbody><!--<repeat>: info in oddsDataMap.asian.odds--><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
+                <tr drunk-repeat="info in oddsDataMap.asian.odds"
+                    drunk-highlight="{yebg: info.cid == highlightCid}"
+                    drunk-on="click: redirect('#/footballdetail/' + tab + '/' + match.fid + '/asian/' + info.cid)">
                     <td>
-                        <span class="color3">澳门</span>
+                        <span class="color3">{{info.name}}</span>
                     </td>
                     <td></td>
                     <td class="carriage">
-                        <span class="color6 f24">1.020</span><br>
+                        <span class="color6 f24"
+                              drunk-class="{'red': info.first.s1 == 1, 'green': info.first.s1 == -1}">{{info.first.home|nullFormat}}</span><br>
 
-                        <span class="f24 green">0.840</span>
+                        <span class="f24" drunk-class="{'red': info.end.s1 == 1, 'green': info.end.s1 == -1}">{{info.end.home|nullFormat}}</span>
                     </td>
                     <td class="carriage">
-                        <span class="color6 f24">一球</span><br>
+                        <span class="color6 f24"
+                              drunk-class="{'sheng': info.first.pk == 1, 'jiang': info.first.pk == -1}">{{info.first.handi|nullFormat}}</span><br>
 
-                        <span class="color6 f24">一球</span>
+                        <span class="color6 f24" drunk-class="{'sheng': info.end.pk == 1, 'jiang': info.end.pk == -1}">{{info.end.handi|nullFormat}}</span>
                     </td>
                     <td class="carriage">
-                        <span class="color6 f24">0.820</span><br>
+                        <span class="color6 f24"
+                              drunk-class="{'red': info.first.s2 == 1, 'green': info.first.s2 == -1}">{{info.first.away|nullFormat}}</span><br>
 
-                        <span class="f24 red">1.000</span>
+                        <span class="f24" drunk-class="{'red': info.end.s2 == 1, 'green': info.end.s2 == -1}">{{info.end.away|nullFormat}}</span>
                     </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">Bet365</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.875</span><br>
-
-                        <span class="f24 red">1.050</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球/球半</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.975</span><br>
-
-                        <span class="f24 green">0.750</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">皇冠</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.980</span><br>
-
-                        <span class="f24 green">0.800</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">一球</span><br>
-
-                        <span class="color6 f24">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.900</span><br>
-
-                        <span class="f24 red">1.110</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">易胜博</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.030</span><br>
-
-                        <span class="f24 green">0.790</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">一球</span><br>
-
-                        <span class="color6 f24">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.870</span><br>
-
-                        <span class="f24 red">1.130</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">伟德</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.900</span><br>
-
-                        <span class="f24 red">1.080</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球/球半</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.990</span><br>
-
-                        <span class="f24 green">0.820</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">Pinnacle平博</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.735</span><br>
-
-                        <span class="f24 red">1.090</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球/球半</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.200</span><br>
-
-                        <span class="f24 green">0.806</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">10BET</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.860</span><br>
-
-                        <span class="f24 green">0.810</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.950</span><br>
-
-                        <span class="f24 red">1.020</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">利记</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.880</span><br>
-
-                        <span class="f24 green">0.810</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.040</span><br>
-
-                        <span class="f24 red">1.120</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">Unibet (优胜客)</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.980</span><br>
-
-                        <span class="f24 red">1.060</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">一球</span><br>
-
-                        <span class="color6 f24 sheng">一球/球半</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.770</span><br>
-
-                        <span class="f24 green">0.730</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">Mansion88 (明升)</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.920</span><br>
-
-                        <span class="f24 green">0.790</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.000</span><br>
-
-                        <span class="f24 red">1.150</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">金宝博</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.000</span><br>
-
-                        <span class="f24 green">0.800</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">一球</span><br>
-
-                        <span class="color6 f24">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.920</span><br>
-
-                        <span class="f24 red">1.130</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">12BET (壹貳博)</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.920</span><br>
-
-                        <span class="f24 green">0.790</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.000</span><br>
-
-                        <span class="f24 red">1.150</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">必发</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.550</span><br>
-
-                        <span class="f24 red">1.110</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球/球半</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.710</span><br>
-
-                        <span class="f24 red">0.820</span>
-                    </td>
-                </tr><!--[repeat-item]info in oddsDataMap.asian.odds--><tr>
-                    <td>
-                        <span class="color3">BETDAQ</span>
-                    </td>
-                    <td></td>
-                    <td class="carriage">
-                        <span class="color6 f24">0.810</span><br>
-
-                        <span class="f24 green">0.790</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">半球/一球</span><br>
-
-                        <span class="color6 f24 sheng">一球</span>
-                    </td>
-                    <td class="carriage">
-                        <span class="color6 f24">1.040</span><br>
-
-                        <span class="f24 red">1.160</span>
-                    </td>
-                </tr><!--</repeat>: info in oddsDataMap.asian.odds-->
-                </tbody></table>
+                </tr>
+            </table>
         </div>
 
-        <!--<if: oddsDataMap.asian.odds && oddsDataMap.asian.odds.length />--><div class="sk-btips">
-            共14家公司为你提供数据，其中主流公司12家
+        <div class="sk-btips" drunk-if="oddsDataMap.asian.odds && oddsDataMap.asian.odds.length">
+            共{{oddsDataMap.asian.all_num}}家公司为你提供数据，其中主流公司{{oddsDataMap.asian.main_num}}家
             <br>
             <span>500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
-        </div></div>
-        <!--<if: subtab === 'rangqiu' />-->
-        <!--<if: subtab === 'daxiaopan' />-->
-        <!--<if: subtab === 'bifa' />-->
-    </div>
+        </div>
+
+    </div>-->
+
+
 </template>
