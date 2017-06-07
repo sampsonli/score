@@ -1,7 +1,7 @@
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 
-const ns = 'team'
+const ns = 'team/zq'
 const state = {
     teamInfo: null,
     teamMatches: null,
