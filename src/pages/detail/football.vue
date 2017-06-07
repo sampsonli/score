@@ -36,20 +36,20 @@
                                                    match.status == StatusCode.ENDED />-->
                         <div class="itm-bf">
                             <div class="fen-bf" time-out="8" class-list="['fen-bf-active']">
-                                <span class="score">0</span>
-                                <span class="score">0</span>
+                                <span class="score">{{baseInfo.homescore}}</span>
+                                <span class="score">{{baseInfo.homescore}}</span>
                             </div>
                             <div class="fen-ld">:</div>
                             <div class="fen-bf" time-out="8" class-list="['fen-bf-active']">
-                                <span class="score">3</span>
-                                <span class="score">3</span>
+                                <span class="score">{{baseInfo.awayscore}}</span>
+                                <span class="score">{{baseInfo.awayscore}}</span>
                             </div>
                         </div>
                         <!--<if: match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED />-->
                         <!--<if: match.status == StatusCode.NOT_STARTED />-->
                         <div class="left-img" onclick="location.href='team_home/index.html#!/team/zq/5535/sc'">
                             <div class="img-box"><img
-                                    src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_5535.png">
+                                    :src="baseInfo.homelogo">
                             </div>
                             <h2 class="left-name f28">{{baseInfo.homesxname}}<!--<if: match.zlc == 1 />--></h2>
 
@@ -57,7 +57,7 @@
                         </div>
                         <div class="right-img" onclick="location.href='team_home/index.html#!/team/zq/808/sc'">
                             <div class="img-box"><img
-                                    src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_808.png">
+                                    :src="baseInfo.awaylogo">
                             </div>
                             <h2 class="right-name f28">{{baseInfo.awaysxname}}</h2>
 
