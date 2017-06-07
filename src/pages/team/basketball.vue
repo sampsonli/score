@@ -12,9 +12,8 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="`/team/football/${teamId}/gl`" replace>概览<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="`/team/football/${teamId}/sc`" replace>赛程<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/zr')}" :to="`/team/football/${teamId}/zr`" replace>阵容<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="`/team/basketball/${teamId}/${seasonid}/gl`" replace>概览<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="`/team/basketball/${teamId}/${seasonid}/sc`" replace>赛程<i class="sktab-arrow"></i></router-link>
             </nav>
         </header>
         <div class="l-flex-1 l-relative">
@@ -50,7 +49,7 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch(aTypes.requestTeamInfo, this.$route.params.tid)
+        // this.$store.dispatch(aTypes.requestTeamInfo, this.$route.params.tid)
     }
 }
 </script>

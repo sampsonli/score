@@ -4,9 +4,9 @@
         <header class="header">
             <div class="info"><a class="back-icon" onclick="history.back()">返回</a>
                 <div class="info-c">
-                    <div class="info-pic"><img :src="teamInfo.teamlogo"></div>
+                    <div class="info-pic"><img :src="teamInfo && teamInfo.teamlogo"></div>
                     <div class="info-itm">
-                        <h1>{{teamInfo.teamsxname}}</h1>
+                        <h1>{{teamInfo && teamInfo.teamsxname}}</h1>
                         <p>{{makeCapTip}}</p>
                     </div>
                 </div>
@@ -43,7 +43,9 @@ export default {
             return this.$store.state.teamZq.teamMember
         },
         makeCapTip () {
-            return this.teamInfo.homefieldcap ? (this.teamInfo.teamhomefield + '-容纳' + this.teamInfo.homefieldcap + '人') : ''
+            if (this.teamInfo) {
+                return this.teamInfo.homefieldcap ? (this.teamInfo.teamhomefield + '-容纳' + this.teamInfo.homefieldcap + '人') : ''
+            }
         },
         teamId () {
             return this.$route.params.tid

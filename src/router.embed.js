@@ -25,6 +25,10 @@ import TeamFootballSc from '~pages/team/football/sc.vue'
 import TeamFootballGl from '~pages/team/football/gl.vue'
 import TeamFootballZr from '~pages/team/football/zr.vue'
 
+import TeamBasketball from '~pages/team/basketball.vue'
+import TeamBasketballSc from '~pages/team/basketball/sc.vue'
+import TeamBasketballGl from '~pages/team/basketball/gl.vue'
+
 Vue.use(VueRouter)
 const mode = process.env.VUE_ENV === 'app' ? 'hash' : 'history'
 
@@ -135,6 +139,27 @@ export function createRouter () {
                         path: 'zr',
                         component: TeamFootballZr,
                         name: 'team-football-zr'
+                    },
+                    {
+                        path: '*',
+                        redirect: 'sc'
+                    }
+                ]
+            },
+            {
+                path: '/team/basketball/:tid/:sid',
+                component: TeamBasketball,
+                name: 'team-basketball',
+                children: [
+                    {
+                        path: 'sc',
+                        component: TeamBasketballSc,
+                        name: 'team-basketball-sc'
+                    },
+                    {
+                        path: 'gl',
+                        component: TeamBasketballGl,
+                        name: 'team-basketball-gl'
                     },
                     {
                         path: '*',

@@ -59,7 +59,7 @@ export default {
         membersObj () {
             let fType = []
             let members = []
-            if (!(this.teamMembers)) { return }
+            if (!(this.teamMembers)) { return {members: []} }
             fType = Object.keys(this.typeMap)
             fType.forEach((key, idx) => {
                 members[idx] = this.teamMembers[key]

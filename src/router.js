@@ -52,6 +52,11 @@ const TeamFootball = () => import('~pages/team/football.vue')
 const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
+
+const TeamBasketBall = () => import('~pages/team/basketball.vue')
+const TeamBasketBallGl = () => import('~pages/team/basketball/gl.vue')
+const TeamBasketBallSc = () => import('~pages/team/basketball/sc.vue')
+// const TeamBasketBallZr = () => import('~pages/team/football/zr.vue')
 console.log()
 export function createRouter () {
     return new VueRouter({
@@ -239,7 +244,29 @@ export function createRouter () {
                         redirect: 'sc'
                     }
                 ]
+            },
+            {
+                path: '/team/basketball/:tid/:sid',
+                component: TeamBasketBall,
+                name: 'team-basketball',
+                children: [
+                    {
+                        path: 'sc',
+                        component: TeamBasketBallSc,
+                        name: 'team-basketball-sc'
+                    },
+                    {
+                        path: 'gl',
+                        component: TeamBasketBallGl,
+                        name: 'team-basketball-gl'
+                    },
+                    {
+                        path: '*',
+                        redirect: 'sc'
+                    }
+                ]
             }
+
         ]
     })
 }
