@@ -5,7 +5,7 @@
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
-            <div @click="goTeam(baseInfo.awayid)" class="r-sn f24">{{baseInfo.simpleleague}}</div>
+            <div onclick="home.goLeague()" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
 
             <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
