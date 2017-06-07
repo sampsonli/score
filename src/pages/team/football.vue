@@ -59,4 +59,8 @@ export default {
     .top_0 {
         margin-top: 0;
     }
+
+    .back-icon:before {
+        margin-top: auto;
+    }
 </style>

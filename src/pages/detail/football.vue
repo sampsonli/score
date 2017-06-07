@@ -213,5 +213,11 @@
         top: 0
     }
 
+    .sktab-arrow {
+         border: none;
+         margin-left: auto;
+
+    }
+
 
 </style>
