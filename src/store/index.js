@@ -97,7 +97,7 @@ const actions = {
                 let error = new Error('超时')
                 error.code = '103'
                 reject(error)
-            }, 1000)
+            }, 2000)
             commit('initSocket', {connect})
         })
     },
