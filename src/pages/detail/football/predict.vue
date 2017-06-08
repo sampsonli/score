@@ -68,7 +68,7 @@
 
                 <echart-bar-line v-if="predictAsian" v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率" name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars" :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
 
-                <div class="feed-back" drunk-if="!predictAsian">
+                <div class="feed-back" v-if="!predictAsian">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -212,7 +212,7 @@
                                 class="item-info2">{{predictHalf.outter.nums[2].num}}球</span></li>
                     </ul>
                 </div>
-                <div class="feed-back" drunk-if="!predictHalf">
+                <div class="feed-back" v-if="!predictHalf">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
