@@ -65,14 +65,6 @@
                    {'value':bifa.all_trade.pie_chart.draw_percent,'name':'平'},
                    {'value':bifa.all_trade.pie_chart.lost_percent,'name':'负'}
                  ]"></echart-pip>
-                        <!--<div class="volumeChart" drunk-echart-pie="{
-                 'name':['胜','平','负'],
-                 'data':[
-                   {'value':bifa.all_trade.pie_chart.win_percent,'name':'胜'},
-                   {'value':bifa.all_trade.pie_chart.draw_percent,'name':'平'},
-                   {'value':bifa.all_trade.pie_chart.lost_percent,'name':'负'}
-                 ]
-                }"></div>-->
                         <div class="info">
                             <em class="f34">{{bifa.all_trade.pie_chart.all_amount}}</em>
                             <p class="f22">总交易[港币]</p>
@@ -94,35 +86,21 @@
 
                 </p>
                 <div class="volumeAll">
-                    <div class="all-qushi1" drunk-echart-big-trade="{
-           'name1':'主胜',
-           'name2':'平',
-           'name3':'主负',
-           'data1':bifa.all_trade.line_chart.win_gram,
-           'data2':bifa.all_trade.line_chart.draw_gram,
-           'data3':bifa.all_trade.line_chart.lost_gram,
-           'startTime':bifa.all_trade.line_chart.start_time,
-           'endTime':bifa.all_trade.line_chart.curr_time
-        }">
-                    </div>
-                    <div class="all-qushi1" drunk-echart-all-trade="{
-           'name':'交易总量',
-           'data':bifa.all_trade.line_chart.amount_gram
-        }">
-                    </div>
+                    <echart-big-trade class="all-qushi1" name1="主胜" name2="平" name3="主负" :data1="bifa.all_trade.line_chart.win_gram" :data2="bifa.all_trade.line_chart.draw_gram"
+                    :data3="bifa.all_trade.line_chart.lost_gram" :start-time="bifa.all_trade.line_chart.start_time" :end-time="bifa.all_trade.line_chart.curr_time"></echart-big-trade>
+
+                    <echart-all-trade class="all-qushi1" :data="bifa.all_trade.line_chart.amount_gram" name="交易总量"></echart-all-trade>
+
                 </div>
             </div>
             <div class="volumeBox" v-if="bifa.big_trade">
                 <div class="bili-box">
                     <div class="chart into">
-                        <div class="volumeChart" drunk-echart-pie="{
-                 'name':['胜','平','负'],
-                 'data':[
+                        <echart-pip  class="volumeChart" :data="[
                    {'value':bifa.big_trade.pie_chart.win_percent,'name':'胜'},
                    {'value':bifa.big_trade.pie_chart.draw_percent,'name':'平'},
                    {'value':bifa.big_trade.pie_chart.lost_percent,'name':'负'}
-                 ]
-                }"></div>
+                 ]"></echart-pip>
                         <div class="info">
                             <em class="f34">{{bifa.big_trade.pie_chart.all_amount}}</em>
                             <p class="f22">大额交易[港币]</p>
@@ -141,13 +119,9 @@
                     </div>
                 </div>
                 <div class="volumeAll">
-                    <div class="dae-fenbu" drunk-echart-big-trade-bar="{
-               'name1':'买入',
-               'name2':'卖出',
-               'data1':[bifa.big_trade.line_chart.win_buy,bifa.big_trade.line_chart.draw_buy,bifa.big_trade.line_chart.lost_buy],
-               'data2':[bifa.big_trade.line_chart.win_sell,bifa.big_trade.line_chart.draw_sell,bifa.big_trade.line_chart.lost_sell]
-            }">
-                    </div>
+                    <echart-big-trade-bar class="dae-fenbu" name1="买入" name2="卖出" :data1="[bifa.big_trade.line_chart.win_buy,bifa.big_trade.line_chart.draw_buy,bifa.big_trade.line_chart.lost_buy]"
+                                          :data2="[bifa.big_trade.line_chart.win_sell,bifa.big_trade.line_chart.draw_sell,bifa.big_trade.line_chart.lost_sell]"></echart-big-trade-bar>
+
                 </div>
                 <h4 class="bili-tit">近10笔大额交易明细</h4>
                 <table cellspacing="0" cellpadding="0" border="0" class="fx-table" width="100%">
@@ -185,14 +159,16 @@
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
     import echartPip from '~components/detail/football/odds/echartPip.vue'
+    import echartBigTrade from '~components/detail/football/odds/echartBigTrade.vue'
+    import echartBigTradeBar from '~components/detail/football/odds/echartBigTradeBar.vue'
+    import echartAllTrade from '~components/detail/football/odds/echartAllTrade.vue'
 
     export default {
         async asyncData ({store, route: {params: {fid}}}) {
-//           if (store.state.home.zq.curExpect === expect && store.state.home.zq.tab === tab) return
             await store.dispatch(aTypes.getOddsBifa, fid)
         },
         components: {
-            echartPip
+            echartPip, echartBigTrade, echartAllTrade, echartBigTradeBar
         },
         data () {
             return {

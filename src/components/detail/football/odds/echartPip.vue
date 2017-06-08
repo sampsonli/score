@@ -5,7 +5,6 @@
 <script>
     import echarts from 'echarts/lib/echarts'
     import 'echarts/lib/chart/pie'
-
     export default {
         props: {
             data: {
@@ -14,7 +13,6 @@
             }
         },
         mounted () {
-            console.log(this.data)
             try {
                 this.echart = echarts.init(this.$el)
 
@@ -40,7 +38,7 @@
                                 }
                             },
                             silent: true,
-                            data
+                            data: this.data
                         }
                     ]
                 }
