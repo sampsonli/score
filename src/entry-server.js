@@ -31,6 +31,7 @@ export default context => {
                 // When we attach the state to the context, and the `template` option
                 // is used for the renderer, the state will automatically be
                 // serialized and injected into the HTML as window.__INITIAL_STATE__.
+                store.state.time = Date.now()
                 context.state = store.state
 
                 resolve(app)

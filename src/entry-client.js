@@ -9,6 +9,24 @@ document.body.appendChild(bar.$el)
 
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
+    beforeMount () {
+        const { asyncData } = this.$options
+        if (asyncData) {
+            if (this.$store.state.time) {
+                if (Date.now() - this.$store.state.time > 5000) {
+                    bar.start()
+                    asyncData({
+                        store: this.$store,
+                        route: this.$route
+                    }).then(() => {
+                        bar.finish()
+                    }).catch(() => {
+                        bar.finish()
+                    })
+                }
+            }
+        }
+    },
     beforeRouteUpdate (to, from, next) {
         const wnext = () => {
             bar.finish()
@@ -43,6 +61,7 @@ router.onReady(() => {
     // the data that we already have. Using router.beforeResolve() so that all
     // async components are resolved.
     router.beforeResolve((to, from, next) => {
+        store.state.time = 0
         const matched = router.getMatchedComponents(to)
         const prevMatched = router.getMatchedComponents(from)
         let diffed = false

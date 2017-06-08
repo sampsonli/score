@@ -11,6 +11,7 @@ import teamLq from './team/lq'
 Vue.use(Vuex)
 
 const state = {
+    time: 0,
     name: 'lichun',
     websocket: {
         connect: null,
@@ -31,6 +32,10 @@ const mutations = {
     },
     updateSocketData (state, data) {
         state.websocket.data = data
+    },
+    setTime (state, time) {
+        console.log('setLTme')
+        state.time = time
     }
 
 }
