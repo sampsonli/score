@@ -8,26 +8,32 @@ const state = {
     teamMembers: null,
     teamId_sc: null,
     teamId_gl: null,
-    teamid_zr: null
+    teamid_zr: null,
+    seasonId_sc: null,
+    seasonId_gl: null,
+    seasonId_zr: null
 }
 
 const actionsInfo = mapActions({
-    async requestTeamInfo ({commit}, {tid, seasonId}) {
-        const teamInfo = await ajax.get(`/library/lq/teaminfo?teamid=${tid}&seasonid=${seasonId}`)
+    async requestTeamInfo ({commit}, {tid, sid}) {
+        const teamInfo = await ajax.get(`/library/lq/teaminfo?teamid=${tid}&seasonid=${sid}`)
         commit(mTypes.setTeamInfo, teamInfo)
         commit(mTypes.setTeamId_gl, tid)
+        commit(mTypes.setSeasonId_gl, sid)
         return teamInfo
     },
-    async requestTeamMatches ({commit}, {tid, seasonId}) {
-        const teamMatches = await ajax.get(`/library/lq/teammatches?teamid=${tid}&seasonid=${seasonId}`)
+    async requestTeamMatches ({commit}, {tid, sid}) {
+        const teamMatches = await ajax.get(`/library/lq/teammatches?teamid=${tid}&seasonid=${sid}`)
         commit(mTypes.setTeamMatches, teamMatches)
         commit(mTypes.setTeamId_sc, tid)
+        commit(mTypes.setSeasonId_sc, sid)
         return teamMatches
     },
-    async requestTeamMember ({commit}, {tid, seasonId}) {
-        const teamMember = await ajax.get(`/library/lq/teammembers?teamid=${tid}&seasonid=${seasonId}`)
+    async requestTeamMember ({commit}, {tid, sid}) {
+        const teamMember = await ajax.get(`/library/lq/teammembers?teamid=${tid}&seasonid=${sid}`)
         commit(mTypes.setTeamMembers, teamMember)
         commit(mTypes.setTeamId_zr, tid)
+        commit(mTypes.setSeasonId_zr, sid)
         return teamMember
     },
     getTeamInfo ({commit}) {
@@ -60,17 +66,20 @@ const mutationsInfo = mapMutations({
     setTeamMembers (state, teamMembers) {
         state.teamMembers = teamMembers
     },
-    getTeamId () {
-        return state.teamId
-    },
     setTeamId_sc (state, teamId) {
         state.teamId_sc = teamId
     },
     setTeamId_gl (state, teamId) {
         state.teamId_gl = teamId
     },
-    setTeamId_zr (state, teamId) {
-        state.teamId_zr = teamId
+    setSeasonId_zr (state, seasonId) {
+        state.seasonId_zr = seasonId
+    },
+    setSeasonId_sc (state, seasonId) {
+        state.seasonId_sc = seasonId
+    },
+    setSeasonId_gl (state, seasonId) {
+        state.seasonId_gl = seasonId
     }
 }, ns)
 const actions = actionsInfo.actions

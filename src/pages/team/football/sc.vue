@@ -51,7 +51,8 @@ export default {
             return !(match.homescore && match.awayscore)
         },
         noEmpty (obj) {
-            return !!Object.keys(obj).length
+            if (obj) { return !!Object.keys(obj).length }
+            return false
         }
     }
 }

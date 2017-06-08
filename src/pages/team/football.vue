@@ -27,11 +27,17 @@
 import {
     aTypes
 } from '~store/team/zq'
+import vueTap from 'v-tap'
+import vue from 'vue'
+vue.use(vueTap)
 export default {
     // async asyncData ({store, route: {params}}) {
     //     if (store.state.teamZq.teamInfo && store.state.teamZq.teamInfo.teamId === params.fid) return
     //     await store.dispatch(aTypes.requestTeamInfo, params.fid)
     // },
+    components: {
+        vueTap
+    },
     computed: {
         teamInfo () {
             return this.$store.state.teamZq.teamInfo
@@ -64,5 +70,10 @@ export default {
 
     .back-icon:before {
         margin-top: auto;
+    }
+    .sktab-arrow {
+        border: .133333rem solid;
+        border-color: rgba(255,255,255,0) rgba(255,255,255,0) rgba(230,230,230,1) rgba(255,255,255,0);
+        margin-left: -.133333rem;
     }
 </style>

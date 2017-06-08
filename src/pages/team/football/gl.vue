@@ -5,7 +5,7 @@
             <div class="main-box">
                 <div class="box-tit">
                     <h2>{{matchType}}</h2> </div>
-                    <table width="100%" cellpadding="0" cellspacing="0" class="table">
+                    <table width="100%" cellpadding="0" cellspacing="0" class="table" v-if="noEmpty(teamInfo.teamrank)">
                         <tbody v-if="isCountry">
                             <tr>
                                 <th align="left">日期</th>
@@ -37,17 +37,19 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="member-list member-empty" v-else>暂无数据</div>
                 </div>
             <div class="main-box">
                     <div class="box-tit">
                         <h2> 球队简介 </h2> </div>
-                        <article class="box-cont introduction">
-                            <section>
+                        <article class="box-cont introduction" v-if="noEmpty(teamInfo.introduction)">
+                            <section >
                                 <p>
                                     {{teamInfo.introduction}}
                                 </p>
                             </section>
                         </article>
+                        <div class="member-list member-empty" v-else>暂无数据</div>
                     </div>
         </div>
         <prompt v-else type="loading" tip0="正在加载中..."/>
@@ -89,7 +91,8 @@ export default {
             return this.isCountry ? rank.year + '.' + rank.month : rank.seasonyear + ' ' + rank.simplegbname
         },
         noEmpty (obj) {
-            return !!Object.keys(obj).length
+            if (obj) { return !!Object.keys(obj).length }
+            return false
         }
     }
 }
