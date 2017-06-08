@@ -17,8 +17,8 @@
             <div class="fen-box f30 responsive">
                 <span class="itm-team each-resone" id="team_home">{{match.homesxname}}</span>
 
-                <div class="itm-bf" id="type_vs" style="display: none">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
-                <div class="itm-bf" id="type_score" style="display: block;">
+                <div class="itm-bf" v-if="match.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
+                <div class="itm-bf" v-else>
                     <div class="fen-bf"><span id="home_score" class="score">{{match.homescore}}</span></div>
                     <div class="fen-ld">:</div>
                     <div class="fen-bf"><span id="away_score" class="score">{{match.awayscore}}</span></div>
