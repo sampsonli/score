@@ -5,7 +5,7 @@
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
-            <div onclick="home.goLeague()" class="r-sn f24">{{baseInfo.simpleleague}}</div>
+            <div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>
 
 
             <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
@@ -15,62 +15,70 @@
                 <div class="sk-point"></div>
             </div>
             <div class="fen-box f30 responsive">
-                <span class="itm-team each-resone" id="team_home">{{baseInfo.homesxname}}</span>
+                <span class="itm-team each-resone" id="team_home">{{match.homesxname}}</span>
 
                 <div class="itm-bf" id="type_vs" style="display: none">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
                 <div class="itm-bf" id="type_score" style="display: block;">
-                    <div class="fen-bf"><span id="home_score" class="score">0</span></div>
+                    <div class="fen-bf"><span id="home_score" class="score">{{match.homescore}}</span></div>
                     <div class="fen-ld">:</div>
-                    <div class="fen-bf"><span id="away_score" class="score">3</span></div>
+                    <div class="fen-bf"><span id="away_score" class="score">{{match.awayscore}}</span></div>
                 </div>
-                <span class="itm-team each-resone" id="team_away">{{baseInfo.awaysxname}}</span>
+                <span class="itm-team each-resone" id="team_away">{{match.awaysxname}}</span>
             </div>
         </div>
         <div class="l-flex-1 l-relative">
             <detail-scroller ref="scroller" @switch="changeHeader" @end="reachEnd">
                 <div class="zq-header _header ">
                     <div class="fen-box">
-                        <!--<if: match.status == StatusCode.FIRST_HALF ||
-                                                   match.status == StatusCode.MID ||
-                                                   match.status == StatusCode.LAST_HALF ||
-                                                   match.status == StatusCode.ENDED />-->
-                        <div class="itm-bf">
-                            <div class="fen-bf" time-out="8" class-list="['fen-bf-active']">
-                                <span class="score">{{baseInfo.homescore}}</span>
-                                <span class="score">{{baseInfo.homescore}}</span>
+
+                        <div class="itm-bf" v-if="match.status == StatusCode.FIRST_HALF ||
+                                   match.status == StatusCode.MID ||
+                                   match.status == StatusCode.LAST_HALF ||
+                                   match.status == StatusCode.ENDED">
+                            <div class="fen-bf" drunk-scroll-text="match.homescore" time-out='8' class-list="['fen-bf-active']">
+                                <span class="score">{{match.homescore}}</span>
+                                <span class="score">{{match.homescore}}</span>
                             </div>
                             <div class="fen-ld">:</div>
-                            <div class="fen-bf" time-out="8" class-list="['fen-bf-active']">
-                                <span class="score">{{baseInfo.awayscore}}</span>
-                                <span class="score">{{baseInfo.awayscore}}</span>
+                            <div class="fen-bf" drunk-scroll-text="match.awayscore" time-out='8' class-list="['fen-bf-active']">
+                                <span class="score">{{match.awayscore}}</span>
+                                <span class="score">{{match.awayscore}}</span>
                             </div>
                         </div>
-                        <!--<if: match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED />-->
-                        <!--<if: match.status == StatusCode.NOT_STARTED />-->
-                        <div class="left-img" v-tap="{methods: goTeam, teamId: baseInfo.homeid}">
-                            <div class="img-box"><img
-                                    :src="baseInfo.homelogo">
-                            </div>
-                            <h2 class="left-name f28">{{baseInfo.homesxname}}<!--<if: match.zlc == 1 />--></h2>
 
-                            <p class="header-pm f20">{{baseInfo.hstr}}</p>
+                        <div
+                                v-if="match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED"
+                                class="wks">{{match.status_desc}}
                         </div>
-                        <div class="right-img" v-tap="{methods: goTeam, teamId: baseInfo.awayid}">
-                            <div class="img-box"><img
-                                    :src="baseInfo.awaylogo">
-                            </div>
-                            <h2 class="right-name f28">{{baseInfo.awaysxname}}</h2>
+                        <div v-if="match.status == StatusCode.NOT_STARTED" class="wks">VS</div>
 
-                            <p class="header-pm f20">{{baseInfo.astr}}</p>
+
+                        <div class="left-img" v-tap="{methods: goTeam, teamId: match.homeid}">
+                            <div class="img-box"><img
+                                    :src="match.homelogo">
+                            </div>
+                            <h2 class="left-name f28">{{match.homesxname}}<span class="zhongli f20"
+                                                                                v-if="match.zlc == 1"> (中)</span></h2>
+
+                            <p class="header-pm f20">{{match.hstr?match.hstr:'暂无排名'}}</p>
+                        </div>
+                        <div class="right-img" v-tap="{methods: goTeam, teamId: match.awayid}">
+                            <div class="img-box"><img
+                                    :src="match.awaylogo">
+                            </div>
+                            <h2 class="right-name f28">{{match.awaysxname}}</h2>
+
+                            <p class="header-pm f20">{{match.astr?match.astr:'暂无排名'}}</p>
                         </div>
                     </div>
                     <div class="game-info">
-                        <!--<if: match.status == StatusCode.FIRST_HALF || match.status == StatusCode.LAST_HALF />-->
-                        <div class="game-state f24">46<i class="dian">'</i>
+                        <div v-if="match.status === StatusCode.FIRST_HALF || match.status === StatusCode.LAST_HALF"
+                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status == StatusCode.FIRST_HALF)}}<i class="dian">'</i>
                         </div>
-                        <!--<if: match.status == StatusCode.MID />-->
-                        <!--<if: match.status == StatusCode.ENDED />-->
-                        <div class="game-time f20">05-21 12:00</div>
+                        <div v-if="match.status === StatusCode.MID" class="game-state f24">中场休息</div>
+                        <div v-if="match.status === StatusCode.ENDED" class="game-state f24">完场</div>
+                        <div class="game-time f20">{{match.matchtime.slice(5,16)}}</div>
+
                     </div>
                     <div class="sk-tips"></div>
                 </div>
@@ -149,6 +157,7 @@
 </template>
 
 <script>
+    import {FootballStatusCode as StatusCode} from '~common/constants'
     import detailScroller from '~components/detail_scroller.vue'
     import {aTypes} from '~store/zqdetail'
     export default {
@@ -156,8 +165,13 @@
             if (store.state.zqdetail.baseInfo && store.state.zqdetail.baseInfo.fid === params.fid) return
             await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
+        data () {
+            return {
+                StatusCode
+            }
+        },
         computed: {
-            baseInfo () {
+            match () {
                 return this.$store.state.zqdetail.baseInfo
             },
             outer () {
@@ -201,6 +215,19 @@
                     this.$refs.scroller.scrollTo(0, true)
                     this.$refs.scroller.switchStop(false)
                 }
+            }
+        },
+        filters: {
+            matchAtFmt: (matchAt, isFirstHalf) => {
+                let second = Number(matchAt);
+                if (second >= 45 * 60) {
+                    return isFirstHalf ? '45+' : '90+';
+                }
+                let minute = Math.ceil(Number(matchAt) / 60);
+                if (minute <= 0) {
+                    minute = 1;
+                }
+                return isFirstHalf ? minute : (minute + 45);
             }
         }
 
