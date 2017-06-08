@@ -70,10 +70,15 @@ export default {
 
     .back-icon:before {
         margin-top: auto;
+        top: auto;
     }
     .sktab-arrow {
         border: .133333rem solid;
         border-color: rgba(255,255,255,0) rgba(255,255,255,0) rgba(230,230,230,1) rgba(255,255,255,0);
         margin-left: -.133333rem;
+    }
+    .matches .list-view-wrapper {
+        background: #fff;
+        margin-top: .266667rem;
     }
 </style>

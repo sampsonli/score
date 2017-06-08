@@ -214,9 +214,12 @@
     }
 
     .sktab-arrow {
-         border: none;
-         margin-left: auto;
+         border: none !important;
+         margin-left: auto !important;
 
+    }
+    .back-icon:before {
+        margin-top: auto;
     }
 
 
