@@ -3,7 +3,7 @@
     <div class="l-full l-scroll-y">
         <div class="main member" :class="{'top_0': noEmptyFlag}">
             <div v-if="noEmpty(teamMembers)">
-                <team-member v-if="noEmpty(members)" v-for="(members, idx) in membersObj.members" :type='getMemberType(idx)' :members='members'></team-member>
+                <team-member v-if="noEmpty(items)" v-for="(items, idx) in membersObj.members" :type='getMemberType(idx)' :members='items' :key="idx"></team-member>
             </div>
             <prompt v-else type="no-data" tip0="暂无数据"/>
             <prompt v-else type="loading" tip0="正在加载中..."/>
@@ -59,7 +59,7 @@ export default {
         membersObj () {
             let fType = []
             let members = []
-            if (!(this.teamMembers)) { return }
+            if (!(this.teamMembers)) { return {members: []} }
             fType = Object.keys(this.typeMap)
             fType.forEach((key, idx) => {
                 members[idx] = this.teamMembers[key]
@@ -81,7 +81,8 @@ export default {
             }
         },
         noEmpty (obj) {
-            return !!Object.keys(obj).length
+            if (obj) { return !!Object.keys(obj).length }
+            return false
         }
     },
     mounted () {

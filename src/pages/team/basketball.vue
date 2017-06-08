@@ -12,9 +12,8 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="`/team/football/${teamId}/gl`" replace>概览<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="`/team/football/${teamId}/sc`" replace>赛程<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/zr')}" :to="`/team/football/${teamId}/zr`" replace>阵容<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="`/team/basketball/${teamId}/${seasonId}/gl`" replace>概览<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="`/team/basketball/${teamId}/${seasonId}/sc`" replace>赛程<i class="sktab-arrow"></i></router-link>
             </nav>
         </header>
         <div class="l-flex-1 l-relative">
@@ -26,27 +25,27 @@
 <script>
 import {
     aTypes
-} from '~store/team/zq'
+} from '~store/team/lq'
 import vueTap from 'v-tap'
 import vue from 'vue'
 vue.use(vueTap)
 export default {
-    // async asyncData ({store, route: {params}}) {
-    //     if (store.state.teamZq.teamInfo && store.state.teamZq.teamInfo.teamId === params.fid) return
-    //     await store.dispatch(aTypes.requestTeamInfo, params.fid)
+    // async asyncData ({store, route: {params: {tid, sid}}}) {
+    //     if (store.state.teamLq.teamInfo && store.state.teamLq.teamInfo.teamId === params.tid && ) return
+    //     await store.dispatch(aTypes.requestTeamInfo, params.id)
     // },
     components: {
         vueTap
     },
     computed: {
         teamInfo () {
-            return this.$store.state.teamZq.teamInfo
+            return this.$store.state.teamLq.teamInfo
         },
         teamMatches () {
-            return this.$store.state.teamZq.teamMatches
+            return this.$store.state.teamLq.teamMatches
         },
         teamMember () {
-            return this.$store.state.teamZq.teamMember
+            return this.$store.state.teamLq.teamMembers
         },
         makeCapTip () {
             if (this.teamInfo) {
@@ -55,10 +54,13 @@ export default {
         },
         teamId () {
             return this.$route.params.tid
+        },
+        seasonId () {
+            return this.$route.params.sid
         }
     },
     mounted () {
-        this.$store.dispatch(aTypes.requestTeamInfo, this.$route.params.tid)
+        this.$store.dispatch(aTypes.requestTeamInfo, {tid: this.teamId, sid: this.seasonId})
     }
 }
 </script>
@@ -70,7 +72,6 @@ export default {
 
     .back-icon:before {
         margin-top: auto;
-        top: auto;
     }
     .sktab-arrow {
         border: .133333rem solid;
