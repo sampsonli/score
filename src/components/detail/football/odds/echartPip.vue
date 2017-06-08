@@ -18,7 +18,7 @@
 
                 let option = {
                     tooltip: {
-                        trigger: 'item',
+                        trigger: 'item'
                     },
                     series: [
                         {

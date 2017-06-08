@@ -98,6 +98,7 @@
     import {aTypes} from '~store/home'
     import scrollText from '~directives/scroll_text'
     export default {
+        hasParametor: true,
         async asyncData ({store, route: {params: {expect, tab}}}) {
             if (store.state.home.lq.curExpect === expect && store.state.home.lq.tab === tab) return
             await store.dispatch(aTypes.fetchLqMatches, {expect, tab})

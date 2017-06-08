@@ -35,7 +35,7 @@
             try {
                 this.echart = echarts.init(this.$el)
                 for (let i = 0, j = this.data.length; i < j; i++) {
-                    this.xAxisData.push(i + 1);
+                    this.xAxisData.push(i + 1)
                 }
 
                 const option = {
@@ -138,7 +138,7 @@
                     ]
                 }
                 if (isAndroid) {
-                    option.grid['left'] = 55;
+                    option.grid['left'] = 55
                 }
                 this.echart.setOption(option)
             } catch (e) {

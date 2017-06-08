@@ -152,6 +152,7 @@
     import {aTypes, mTypes} from '~store/home'
     import scrollText from '~directives/scroll_text'
     export default {
+        hasParametor: true,
         async asyncData ({store, route: {params: {expect, tab}}}) {
             if (store.state.home.zq.curExpect === expect && store.state.home.zq.tab === tab) return
             await store.dispatch(aTypes.fetchZqMatches, {expect, tab})

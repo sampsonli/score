@@ -11,12 +11,12 @@ document.body.appendChild(bar.$el)
 Vue.mixin({
     beforeRouteUpdate (to, from, next) {
         const wnext = () => {
-            // bar.finish()
+            bar.finish()
             next(arguments)
         }
-        const { asyncData } = this.$options
-        if (asyncData) {
-            // bar.start()
+        const { asyncData, hasParametor } = this.$options
+        if (asyncData && hasParametor) {
+            bar.start()
             asyncData({
                 store: this.$store,
                 route: to

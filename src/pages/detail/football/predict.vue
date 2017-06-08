@@ -225,9 +225,10 @@
     </div>
 </template>
 <script>
-//    import europePop from '~components/detail/football/predict/europePop.vue'
-    const europePop = () => import('~components/detail/football/predict/europePop.vue' /* webpackChunkName: "components/detail-football-predict-europe-pop" */)
-    const asianPop = () => import('~components/detail/football/predict/asianPop.vue' /* webpackChunkName: "components/detail-football-predict-asian-pop" */)
+    import europePop from '~components/detail/football/predict/europePop.vue'
+    import asianPop from '~components/detail/football/predict/asianPop.vue'
+//    const europePop = () => import('~components/detail/football/predict/europePop.vue' /* webpackChunkName: "components/detail-football-predict-europe-pop" */)
+//    const asianPop = () => import('~components/detail/football/predict/asianPop.vue' /* webpackChunkName: "components/detail-football-predict-asian-pop" */)
 
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'

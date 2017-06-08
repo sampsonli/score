@@ -162,7 +162,6 @@
     import {aTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
-            if (store.state.zqdetail.baseInfo && store.state.zqdetail.baseInfo.fid === params.fid) return
             await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
         data () {
@@ -219,15 +218,15 @@
         },
         filters: {
             matchAtFmt: (matchAt, isFirstHalf) => {
-                let second = Number(matchAt);
+                let second = Number(matchAt)
                 if (second >= 45 * 60) {
-                    return isFirstHalf ? '45+' : '90+';
+                    return isFirstHalf ? '45+' : '90+'
                 }
-                let minute = Math.ceil(Number(matchAt) / 60);
+                let minute = Math.ceil(Number(matchAt) / 60)
                 if (minute <= 0) {
-                    minute = 1;
+                    minute = 1
                 }
-                return isFirstHalf ? minute : (minute + 45);
+                return isFirstHalf ? minute : (minute + 45)
             }
         }
 

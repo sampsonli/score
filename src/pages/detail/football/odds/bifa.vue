@@ -157,7 +157,7 @@
     </div>
 </template>
 <script>
-    import {aTypes, mTypes} from '~store/zqdetail'
+    import {aTypes} from '~store/zqdetail'
     import echartPip from '~components/detail/football/odds/echartPip.vue'
     import echartBigTrade from '~components/detail/football/odds/echartBigTrade.vue'
     import echartBigTradeBar from '~components/detail/football/odds/echartBigTradeBar.vue'
