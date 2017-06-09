@@ -265,6 +265,10 @@ export function createRouter () {
                         redirect: 'sc'
                     }
                 ]
+            },
+            {
+                path: '*',
+                redirect: '/home/zq/jczq/cur'
             }
 
         ]
